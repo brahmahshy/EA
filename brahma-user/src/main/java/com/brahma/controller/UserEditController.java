@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
+import com.brahma.entity.BaseIdBo;
 import com.brahma.entity.RequestBo;
 import com.brahma.entity.ResponseVo;
 import com.brahma.entity.request.UserBo;
@@ -48,7 +49,8 @@ public class UserEditController {
      */
     @DeleteMapping("/delete")
     @Operation(description = "根据userId删除用户")
-    public ResponseVo<Void> delete(@RequestBody UserBo bo) {
+    public ResponseVo<Void> delete(@RequestBody @Valid RequestBo<BaseIdBo> bo) {
+        userService.delete(bo.getParams().getId());
         return ResponseVo.success(null);
     }
 }
