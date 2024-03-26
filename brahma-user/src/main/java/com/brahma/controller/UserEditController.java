@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
+import com.brahma.entity.RequestBo;
 import com.brahma.entity.ResponseVo;
 import com.brahma.entity.request.UserBo;
 import com.brahma.entity.response.UserVo;
@@ -35,8 +36,8 @@ public class UserEditController {
      */
     @PostMapping("/update")
     @Operation(description = "根据userId更新用户")
-    public ResponseVo<UserVo> update(@RequestBody @Valid UserBo bo) {
-        return ResponseVo.success(userService.update(bo));
+    public ResponseVo<UserVo> update(@RequestBody @Valid RequestBo<UserBo> bo) {
+        return ResponseVo.success(userService.update(bo.getParams()));
     }
 
     /**
