@@ -9,15 +9,15 @@ import lombok.Setter;
 @Setter
 public class ResponseVo<T> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private T params;
+    private T data;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private ResponseError error;
 
     private ResponseStatus status;
 
-    private ResponseVo(T params, ResponseStatus status) {
-        this.params = params;
+    private ResponseVo(T data, ResponseStatus status) {
+        this.data = data;
         this.status = status;
     }
 
