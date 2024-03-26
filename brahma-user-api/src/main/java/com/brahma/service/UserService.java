@@ -17,8 +17,15 @@ public interface UserService {
     /**
      * 更新用户
      *
-     * @param userId 需要更新的用户id
+     * @param bo 需要更新的用户id
      * @return 更新后的基本用户信息
      */
-    UserVo update(UserBo userId);
+    UserVo update(UserBo bo);
+
+    /**
+     * 删除用户
+     *
+     * @param userId 需要删除的用户id
+     */
+    void delete(Integer userId);
 }
