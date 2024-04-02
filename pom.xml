@@ -16,9 +16,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>brahma-spring-boot-starter</module>
+        <module>brahma-common</module>
+        <module>brahma-integration</module>
         <module>brahma-user</module>
         <module>brahma-user-api</module>
-        <module>brahma-common</module>
     </modules>
 
     <!--公共属性-->

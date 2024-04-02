@@ -11,6 +11,7 @@
         <module name="brahma-user" />
         <module name="brahma-spring-boot-starter" />
         <module name="brahma-common" />
+        <module name="brahma-wechat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,10 +22,12 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="brahma" options="-parameters" />
       <module name="brahma-common" options="-parameters" />
+      <module name="brahma-integration" options="-parameters" />
       <module name="brahma-spring-boot" options="-parameters" />
       <module name="brahma-spring-boot-starter" options="-parameters" />
       <module name="brahma-user" options="-parameters" />
       <module name="brahma-user-api" options="-parameters" />
+      <module name="brahma-wechat" options="-parameters" />
     </option>
   </component>
 </project>

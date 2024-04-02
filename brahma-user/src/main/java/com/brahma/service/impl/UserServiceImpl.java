@@ -11,6 +11,8 @@ import com.brahma.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 /**
  *
  */
@@ -21,15 +23,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public String create() {
+    public UserDo create(UserBo params) {
         UserDo userDo = new UserDo();
-        userDo.setName("admin");
-        userDo.setTelephone("15270276124");
-        userDo.setEmail("875101222@qq.com");
+        userDo.setId(Integer.valueOf(UUID.randomUUID().toString()));
+        userDo.setName(params.getName());
+        userDo.setImageUrl(params.getImageUrl());
+        userDo.setTelephone(params.getTelephone());
+        userDo.setEmail(params.getEmail());
         userDo.setCreatorId(1);
         userDo.setUpdaterId(1);
         userMapper.insert(userDo);
-        return "创建成功";
+        return userDo;
     }
 
     @Override

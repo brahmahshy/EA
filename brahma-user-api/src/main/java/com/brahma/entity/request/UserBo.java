@@ -19,6 +19,10 @@ public class UserBo extends BaseIdBo {
     private String name;
 
     @NotEmpty
+    @Schema(description = "用户头像url")
+    private String imageUrl;
+
+    @NotEmpty
     @Schema(description = "用户电话")
     private String telephone;
 

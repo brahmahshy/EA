@@ -1,7 +1,9 @@
 package com.brahma.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +18,12 @@ import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
 @Getter
 @Setter
 public class TableBaseDo {
+    /**
+     * 主键id
+     */
+    @TableId(type = IdType.INPUT)
+    private Integer id;
+
     /**
      * 创建人id
      */

@@ -9,8 +9,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.example</groupId>
-    <artifactId>brahma-spring-boot-starter</artifactId>
+    <artifactId>brahma-integration</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>brahma-wechat</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -21,13 +24,9 @@
     <dependencies>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>brahma-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.brahma</groupId>
-            <artifactId>brahma-wechat</artifactId>
+            <artifactId>brahma-common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>

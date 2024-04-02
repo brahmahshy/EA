@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import com.brahma.entity.BaseIdBo;
 import com.brahma.entity.RequestBo;
 import com.brahma.entity.ResponseVo;
+import com.brahma.entity.UserDo;
 import com.brahma.entity.request.UserBo;
 import com.brahma.entity.response.UserVo;
 import com.brahma.service.UserService;
@@ -25,8 +26,8 @@ public class UserEditController {
      * @return 用户基本信息
      */
     @PostMapping("/create")
-    public ResponseVo<String> create() {
-        return ResponseVo.success(userService.create());
+    public ResponseVo<UserDo> create(@RequestBody @Valid RequestBo<UserBo> bo) {
+        return ResponseVo.success(userService.create(bo.getParams()));
     }
 
     /**

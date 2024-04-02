@@ -5,11 +5,6 @@ import java.time.LocalDateTime;
 
 public class PhotoDo extends TableBaseDo {
     /**
-     * id主键
-     */
-    private BigInteger id;
-
-    /**
      * 照片名称
      */
     private String name;

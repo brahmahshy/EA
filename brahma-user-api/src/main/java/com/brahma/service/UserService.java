@@ -1,5 +1,6 @@
 package com.brahma.service;
 
+import com.brahma.entity.UserDo;
 import com.brahma.entity.request.UserBo;
 import com.brahma.entity.response.UserVo;
 
@@ -12,7 +13,7 @@ public interface UserService {
      *
      * @return 创建成功的用户基本信息
      */
-    String create();
+    UserDo create(UserBo params);
 
     /**
      * 更新用户
