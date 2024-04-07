@@ -3,21 +3,18 @@ package com.brahma.service.impl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
-import com.brahma.entity.BrahmaException;
 import com.brahma.entity.PhotoDo;
 import com.brahma.mapper.PhotoMapper;
 import com.brahma.service.PhotoService;
 import com.brahma.util.SnowIdWorker;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -28,38 +25,25 @@ public class PhotoServiceImpl implements PhotoService {
     @Resource
     private SnowIdWorker snowIdWorker;
 
+    @Resource
+    private PlatformTransactionManager transactionManager;
+
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void readPhoto(List<File> files) {
-        int size = files.size();
-        List<CompletableFuture<Integer>> tasks = new ArrayList<>(size);
-        files.forEach(file -> tasks.add(CompletableFuture.supplyAsync(() -> {
-            PhotoDo photoDo = new PhotoDo();
-            photoDo.setName(file.getName());
-            photoDo.setAliseName("");
-            photoDo.setFilePath(file.getAbsolutePath());
-            photoDo.setShootingStartTime(LocalDateTime.now());
-            photoDo.setShootingEndTime(LocalDateTime.now());
-            photoDo.setPhotographerId(0L);
-            photoDo.setModelId(0L);
-            photoDo.setLocation("");
-            log.debug("insert photo {}", photoDo);
-            return photoMapper.insert(photoDo);
-        })));
-//        CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0]));
-        try {
-            long count = 0L;
-            for (CompletableFuture<Integer> task : tasks) {
-                Integer num = task.get();
-                if (num != null && num != 0) {
-                    count++;
-                }
-            }
-            if (count < size) {
-                throw new BrahmaException("操作失败");
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            throw new BrahmaException(e);
+        // todo 直接从本地磁盘读取，后续需要优化为使用 NAS 或 S3 进行存储
+        // todo 后续需要优化为多线程执行，或者 批量插入
+        for (File file : files) {
+            photoMapper.insert(new PhotoDo() {{
+                this.setName(file.getName());
+                this.setAliseName("");
+                this.setFilePath(file.getAbsolutePath());
+                this.setShootingStartTime(LocalDateTime.now());
+                this.setShootingEndTime(LocalDateTime.now());
+                this.setPhotographerId(0L);
+                this.setModelId(0L);
+                this.setLocation("");
+            }});
         }
     }
 }
