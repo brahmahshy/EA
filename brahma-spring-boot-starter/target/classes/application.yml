@@ -21,8 +21,3 @@ mybatis-plus:
 logging:
   level:
     com.brahma: debug
-
-brahma:
-  photo:
-    path: G:\活动记录
-

@@ -16,13 +16,16 @@ public class MybatisPlusHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
+        this.strictInsertFill(metaObject, "creatorId", Long.class, 0L);
         this.strictInsertFill(metaObject, "createTime", LocalDateTime.class, now);
+        this.strictInsertFill(metaObject, "updaterId", Long.class, 0L);
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, now);
         this.strictInsertFill(metaObject, "updateCount", Integer.class, 0);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
+        this.strictInsertFill(metaObject, "updaterId", Long.class, 0L);
         this.strictInsertFill(metaObject, "updateTime", LocalDateTime.class, LocalDateTime.now());
     }
 }

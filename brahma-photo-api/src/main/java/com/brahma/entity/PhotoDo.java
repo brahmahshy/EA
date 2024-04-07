@@ -1,8 +1,14 @@
 package com.brahma.entity;
 
-import java.math.BigInteger;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.time.LocalDateTime;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "photo", schema = "brahma")
 public class PhotoDo extends TableBaseDo {
     /**
      * 照片名称
@@ -32,17 +38,12 @@ public class PhotoDo extends TableBaseDo {
     /**
      * 摄影师id
      */
-    private BigInteger photographerId;
+    private Long photographerId;
 
     /**
      * 模特id
      */
-    private BigInteger modelId;
-
-    /**
-     * 是否关联多个模特
-     */
-    private Boolean hasMoreModel;
+    private Long modelId;
 
     /**
      * 拍摄地点

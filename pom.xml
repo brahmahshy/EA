@@ -20,6 +20,8 @@
         <module>brahma-integration</module>
         <module>brahma-user</module>
         <module>brahma-user-api</module>
+        <module>brahma-photo</module>
+        <module>brahma-photo-api</module>
     </modules>
 
     <!--公共属性-->

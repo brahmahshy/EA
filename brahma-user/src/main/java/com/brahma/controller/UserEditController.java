@@ -10,7 +10,7 @@ import com.brahma.entity.ResponseVo;
 import com.brahma.entity.UserDo;
 import com.brahma.entity.request.UserBo;
 import com.brahma.entity.response.UserVo;
-import com.brahma.service.UserService;
+import com.brahma.service.UserEditService;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserEditController {
     @Resource
-    private UserService userService;
+    private UserEditService userService;
 
     /**
      * 创建用户

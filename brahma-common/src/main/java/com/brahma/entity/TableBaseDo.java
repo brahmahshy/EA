@@ -4,8 +4,9 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
+import com.brahma.util.SnowIdWorker;
 
 import java.time.LocalDateTime;
 
@@ -15,19 +16,19 @@ import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
 /**
  * 基础Do类，供所有Do类继承字段
  */
-@Getter
-@Setter
+@Data
 public class TableBaseDo {
     /**
      * 主键id
      */
     @TableId(type = IdType.INPUT)
-    private Integer id;
+    private Long id;
 
     /**
      * 创建人id
      */
-    private Integer creatorId;
+    @TableField(fill = INSERT)
+    private Long creatorId;
 
     /**
      * 創建時間
@@ -38,7 +39,8 @@ public class TableBaseDo {
     /**
      * 更新人id
      */
-    private Integer updaterId;
+    @TableField(fill = INSERT_UPDATE)
+    private Long updaterId;
 
     /**
      * 更新時間
@@ -51,4 +53,8 @@ public class TableBaseDo {
      */
     @TableField(update = "%s + 1", updateStrategy = FieldStrategy.ALWAYS, fill = INSERT)
     private Integer updateCount;
+
+    public TableBaseDo() {
+        this.id = SnowIdWorker.getInstance().nextId();
+    }
 }

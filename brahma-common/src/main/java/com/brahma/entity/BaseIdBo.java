@@ -17,5 +17,5 @@ import lombok.Setter;
 public class BaseIdBo {
     @NotNull
     @Schema(description = "用户id")
-    private Integer id;
+    private Long id;
 }

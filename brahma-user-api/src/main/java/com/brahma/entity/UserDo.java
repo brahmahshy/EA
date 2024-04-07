@@ -1,14 +1,16 @@
 package com.brahma.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * 用户Do
  */
-@Getter
-@Setter
+@Data
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "user", schema = "brahma")
 public class UserDo extends TableBaseDo {
     private String name;

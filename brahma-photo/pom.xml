@@ -9,8 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.example</groupId>
-    <artifactId>brahma-spring-boot-starter</artifactId>
+    <artifactId>brahma-photo</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -21,17 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>brahma-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.brahma</groupId>
-            <artifactId>brahma-photo</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.brahma</groupId>
-            <artifactId>brahma-integration</artifactId>
+            <artifactId>brahma-photo-api</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="brahma-user-api" />
-        <module name="brahma-user" />
         <module name="brahma-spring-boot-starter" />
         <module name="brahma-common" />
         <module name="brahma-wechat" />
+        <module name="brahma-user" />
+        <module name="brahma-photo-api" />
+        <module name="brahma-photo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +25,8 @@
       <module name="brahma" options="-parameters" />
       <module name="brahma-common" options="-parameters" />
       <module name="brahma-integration" options="-parameters" />
+      <module name="brahma-photo" options="-parameters" />
+      <module name="brahma-photo-api" options="-parameters" />
       <module name="brahma-spring-boot" options="-parameters" />
       <module name="brahma-spring-boot-starter" options="-parameters" />
       <module name="brahma-user" options="-parameters" />

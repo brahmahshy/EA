@@ -7,7 +7,7 @@ import com.brahma.entity.response.UserVo;
 /**
  * 用户服务Service层
  */
-public interface UserService {
+public interface UserEditService {
     /**
      * 创建用户
      *
@@ -28,5 +28,5 @@ public interface UserService {
      *
      * @param userId 需要删除的用户id
      */
-    void delete(Integer userId);
+    void delete(Long userId);
 }

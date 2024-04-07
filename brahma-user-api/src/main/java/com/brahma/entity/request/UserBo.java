@@ -7,13 +7,11 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.brahma.entity.BaseIdBo;
-
 @Valid
 @Getter
 @Setter
 @Schema(description = "用户商业业务对象")
-public class UserBo extends BaseIdBo {
+public class UserBo {
     @NotEmpty
     @Schema(description = "用户名称")
     private String name;
