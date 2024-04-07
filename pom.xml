@@ -22,6 +22,7 @@
         <module>brahma-user-api</module>
         <module>brahma-photo</module>
         <module>brahma-photo-api</module>
+        <module>brahma-integration/brahma-security-auth</module>
     </modules>
 
     <!--公共属性-->

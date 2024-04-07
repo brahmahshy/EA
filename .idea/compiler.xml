@@ -11,6 +11,7 @@
         <module name="brahma-spring-boot-starter" />
         <module name="brahma-common" />
         <module name="brahma-wechat" />
+        <module name="brahma-security-auth" />
         <module name="brahma-user" />
         <module name="brahma-photo-api" />
         <module name="brahma-photo" />
@@ -27,6 +28,7 @@
       <module name="brahma-integration" options="-parameters" />
       <module name="brahma-photo" options="-parameters" />
       <module name="brahma-photo-api" options="-parameters" />
+      <module name="brahma-security-auth" options="-parameters" />
       <module name="brahma-spring-boot" options="-parameters" />
       <module name="brahma-spring-boot-starter" options="-parameters" />
       <module name="brahma-user" options="-parameters" />

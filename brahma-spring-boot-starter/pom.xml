@@ -31,7 +31,12 @@
         </dependency>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>brahma-integration</artifactId>
+            <artifactId>brahma-wechat</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.brahma</groupId>
+            <artifactId>brahma-security-auth</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
