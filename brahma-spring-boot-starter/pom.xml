@@ -29,14 +29,21 @@
             <artifactId>brahma-photo</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- 项目集成第三方插件 -->
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>brahma-wechat</artifactId>
+            <artifactId>brahma-gateway</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.brahma</groupId>
             <artifactId>brahma-security-auth</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.brahma</groupId>
+            <artifactId>brahma-wechat</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

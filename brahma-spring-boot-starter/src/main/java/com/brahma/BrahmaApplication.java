@@ -8,8 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource(
-        value = {"classpath:application.yml", "classpath:application-photo.yml", "classpath:application-wx.yml",
-                "classpath:application-security.yml"}
+        value = {"classpath:application.yml", "classpath:application-photo.yml", "classpath:application-gateway.yml",
+                "classpath:application-security.yml", "classpath:application-wx.yml"}
         , factory = BrahmaPropertySourceFactory.class
 )
 public class BrahmaApplication {

@@ -12,6 +12,7 @@
         <module name="brahma-common" />
         <module name="brahma-wechat" />
         <module name="brahma-security-auth" />
+        <module name="brahma-gateway" />
         <module name="brahma-user" />
         <module name="brahma-photo-api" />
         <module name="brahma-photo" />
@@ -25,6 +26,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="brahma" options="-parameters" />
       <module name="brahma-common" options="-parameters" />
+      <module name="brahma-gateway" options="-parameters" />
       <module name="brahma-integration" options="-parameters" />
       <module name="brahma-photo" options="-parameters" />
       <module name="brahma-photo-api" options="-parameters" />
