@@ -7,35 +7,43 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="brahma-user-api" />
-        <module name="brahma-spring-boot-starter" />
-        <module name="brahma-common" />
-        <module name="brahma-wechat" />
-        <module name="brahma-security-auth" />
-        <module name="brahma-gateway" />
-        <module name="brahma-user" />
-        <module name="brahma-photo-api" />
-        <module name="brahma-photo" />
+        <module name="acg-photo-api" />
+        <module name="acg-user-api" />
+        <module name="acg-starter" />
+        <module name="acg-wechat" />
+        <module name="acg-user-impl" />
+        <module name="acg-photo-impl" />
+        <module name="acg-business-controller" />
+        <module name="acg-spring" />
+        <module name="acg-api-integration" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="acg-gateway" target="21" />
+      <module name="acg-security-auth" target="21" />
       <module name="brahma-spring-boot" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="brahma" options="-parameters" />
-      <module name="brahma-common" options="-parameters" />
-      <module name="brahma-gateway" options="-parameters" />
-      <module name="brahma-integration" options="-parameters" />
-      <module name="brahma-photo" options="-parameters" />
-      <module name="brahma-photo-api" options="-parameters" />
-      <module name="brahma-security-auth" options="-parameters" />
+      <module name="EasyAcg" options="-parameters" />
+      <module name="acg-api-integration" options="-parameters" />
+      <module name="acg-business" options="-parameters" />
+      <module name="acg-business-api" options="-parameters" />
+      <module name="acg-business-controller" options="-parameters" />
+      <module name="acg-business-impl" options="-parameters" />
+      <module name="acg-common" options="-parameters" />
+      <module name="acg-gateway" options="-parameters" />
+      <module name="acg-integration" options="-parameters" />
+      <module name="acg-photo-api" options="-parameters" />
+      <module name="acg-photo-impl" options="-parameters" />
+      <module name="acg-security-auth" options="-parameters" />
+      <module name="acg-spring" options="-parameters" />
+      <module name="acg-starter" options="-parameters" />
+      <module name="acg-user-api" options="-parameters" />
+      <module name="acg-user-impl" options="-parameters" />
+      <module name="acg-wechat" options="-parameters" />
       <module name="brahma-spring-boot" options="-parameters" />
-      <module name="brahma-spring-boot-starter" options="-parameters" />
-      <module name="brahma-user" options="-parameters" />
-      <module name="brahma-user-api" options="-parameters" />
-      <module name="brahma-wechat" options="-parameters" />
     </option>
   </component>
 </project>

@@ -4,14 +4,26 @@
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="jakarta.annotation.Resource" />
     </list>
+    <writeAnnotations>
+      <writeAnnotation name="jakarta.annotation.Resource" />
+      <writeAnnotation name="org.springframework.beans.factory.annotation.Value" />
+    </writeAnnotations>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-b-integration/brahma-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-c-business/acg-business-controller/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/acg-b-common/acg-integration/acg-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-b-common/acg-integration/acg-security-auth/pom.xml" />
+      </set>
+    </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />
 </project>

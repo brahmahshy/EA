@@ -11,19 +11,13 @@
     </parent>
 
     <groupId>com.brahma</groupId>
-    <artifactId>brahma</artifactId>
+    <artifactId>EasyAcg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>brahma-spring-boot-starter</module>
-        <module>brahma-common</module>
-        <module>brahma-integration</module>
-        <module>brahma-user</module>
-        <module>brahma-user-api</module>
-        <module>brahma-photo</module>
-        <module>brahma-photo-api</module>
-        <module>brahma-integration/brahma-security-auth</module>
-        <module>brahma-integration/brahma-gateway</module>
+        <module>acg-starter</module>
+        <module>acg-common</module>
+        <module>acg-business</module>
     </modules>
 
     <!--公共属性-->
