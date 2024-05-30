@@ -5,23 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.brahma</groupId>
-        <artifactId>EasyAcg</artifactId>
+        <artifactId>acg-business</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acg-starter</artifactId>
+    <artifactId>acg-wechat</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <weixin.miniapp.version>4.6.1.B</weixin.miniapp.version>
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-miniapp -->
         <dependency>
-            <groupId>com.brahma</groupId>
-            <artifactId>acg-controller</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>${weixin.miniapp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
         </dependency>
     </dependencies>
+
 </project>

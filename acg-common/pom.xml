@@ -10,11 +10,6 @@
     </parent>
 
     <artifactId>acg-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>acg-integration</module>
-        <module>acg-spring</module>
-    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

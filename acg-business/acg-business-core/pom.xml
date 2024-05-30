@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.brahma</groupId>
-        <artifactId>EasyAcg</artifactId>
+        <artifactId>acg-business</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acg-starter</artifactId>
+    <artifactId>acg-business-core</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -20,7 +20,19 @@
     <dependencies>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>acg-controller</artifactId>
+            <artifactId>acg-photo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.brahma</groupId>
+            <artifactId>acg-user</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.brahma</groupId>
+            <artifactId>acg-wechat</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

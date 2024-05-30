@@ -3,26 +3,29 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/acg-b-common/acg-integration/acg-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-b-common/acg-integration/acg-security-auth/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-business/acg-business-api/acg-api-integration/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-business/acg-business-api/acg-photo-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-business/acg-business-api/acg-user-api/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-business/acg-business-controller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-business-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-business/acg-business-impl/acg-photo-impl/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-business/acg-business-impl/acg-user-impl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-business-impl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-business-impl/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-photo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-wechat/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-business/acg-wechat/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-business/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-business/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-c-business/acg-business-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-c-business/acg-business-api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-c-business/acg-business-impl/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-c-business/acg-business-impl/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-common/acg-integration/acg-wechat/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-common/acg-integration/acg-wechat/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-common/acg-common-core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-common/acg-integration/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-common/acg-integration/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/acg-common/acg-spring/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-common/brahma-spring-boot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-controller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/acg-controller/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/acg-starter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />

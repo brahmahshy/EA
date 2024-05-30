@@ -16,13 +16,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/acg-b-integration/brahma-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/acg-c-business/acg-business-controller/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-controller/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-business/acg-photo/pom.xml" />
+        <option value="$PROJECT_DIR$/acg-business/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/acg-b-common/acg-integration/acg-gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/acg-b-common/acg-integration/acg-security-auth/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="openjdk-21" project-jdk-type="JavaSDK" />

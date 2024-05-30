@@ -17,6 +17,7 @@
     <modules>
         <module>acg-starter</module>
         <module>acg-common</module>
+        <module>acg-controller</module>
         <module>acg-business</module>
     </modules>
 
@@ -34,8 +35,9 @@
         <dependencies>
             <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
+                <artifactId>hutool-bom</artifactId>
                 <version>${hutool.version}</version>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
@@ -84,7 +86,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>

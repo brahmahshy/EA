@@ -12,9 +12,10 @@
     <artifactId>acg-business</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>acg-business-api</module>
-        <module>acg-business-controller</module>
-        <module>acg-business-impl</module>
+        <module>acg-business-core</module>
+        <module>acg-photo</module>
+        <module>acg-user</module>
+        <module>acg-wechat</module>
     </modules>
 
     <properties>
@@ -26,8 +27,8 @@
     <dependencies>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>acg-spring</artifactId>
-            <version>${project.version}</version>
+            <artifactId>acg-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
