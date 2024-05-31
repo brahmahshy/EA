@@ -1,6 +1,7 @@
 package com.acg.easy.common.aspect;
 
 import com.acg.easy.common.holder.RequestHolder;
+import com.acg.easy.common.util.IpUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ApiAspect {
-    @Around("execution(* com.brahma.controller..*(..))")
+    @Around("execution(* com.acg.easy.controller..*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = RequestHolder.getRequest();
-        log.debug(request.getRequestURI());
+        log.info("request ip: {}, url: {}, params: {}", IpUtil.getIp(request), request.getRequestURI(),
+                 joinPoint.getArgs());
         return joinPoint.proceed();
     }
 }
