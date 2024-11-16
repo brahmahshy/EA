@@ -1,1 +1,11 @@
-brahma.photo.path=C:\\Users\\Administrator\\Pictures
+easyacg:
+  storage:
+    mode: com.acg.easy.common.enums.StorageMode.SMB
+    local:
+      path:
+    smb:
+      host: Easyacg
+      share-name: personal_folder
+      username: brahma
+      password: Sdfqwer@1
+      base-path: \

@@ -2,9 +2,13 @@ package com.acg.easy.photo.service;
 
 import com.acg.easy.photo.entity.output.PhotoVo;
 
-import java.io.File;
 import java.util.List;
 
 public interface PhotoService {
-    List<PhotoVo> readPhoto(List<File> files);
+    /**
+     * 根据配置项，读取现有的所有照片
+     *
+     * @return 照片信息
+     */
+    List<PhotoVo> readPhoto();
 }
