@@ -1,29 +1,31 @@
 package com.acg.easy.photo.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.io.FileTypeUtil;
 import com.acg.easy.common.config.StorageProperties;
-import com.acg.easy.common.enums.StorageMode;
 import com.acg.easy.common.util.FileUtil;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.mapper.PhotoMapper;
 import com.acg.easy.photo.service.PhotoService;
 import jakarta.annotation.Resource;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
 
+/**
+ * @author Brahma
+ */
+@Data
 @Slf4j
 @Service
 public class PhotoServiceImpl implements PhotoService {
     @Resource
     private PhotoMapper photoMapper;
 
-    @Autowired
+    @Resource
     private StorageProperties storageProperties;
 
     @Override
@@ -37,33 +39,14 @@ public class PhotoServiceImpl implements PhotoService {
             return null;
         }
 
-        //        files.forEach(file -> {
-        //            photoMapper.insert(new PhotoDo() {{
-        //                this.setName(file.getName());
-        //                this.setAliseName("");
-        //                this.setFilePath(file.getAbsolutePath());
-        //                this.setShootingStartTime(LocalDateTime.now());
-        //                this.setShootingEndTime(LocalDateTime.now());
-        //                this.setPhotographerId(0L);
-        //                this.setModelId(0L);
-        //                this.setLocation("");
-        //            }});
-        //        });
-
-        return files.stream()
-                    .filter(file -> "jpg".equals(FileTypeUtil.getType(file)))
-                    .limit(1)
-                    .map(PhotoVo::transfer)
-                    .toList();
+        return files.stream().map(PhotoVo::transfer).toList();
     }
 
     private List<File> getPhotos() {
-        if (storageProperties.getMode() == StorageMode.SMB) {
-            StorageProperties.SmbProperties smbConfig = storageProperties.getSmb();
-            return FileUtil.getSmbFiles(smbConfig);
-        } else {
-            StorageProperties.LocalProperties localConfig = storageProperties.getLocal();
-            return FileUtil.getFile(localConfig.getPath());
-        }
+        List<File> files = switch (storageProperties.getMode()) {
+            case SMB -> FileUtil.getSmbFiles(storageProperties.getSmb());
+            default -> FileUtil.getFile(storageProperties.getLocal());
+        };
+        return FileUtil.filterImageFiles(files);
     }
 }

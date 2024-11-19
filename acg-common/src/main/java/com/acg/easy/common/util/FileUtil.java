@@ -1,7 +1,9 @@
 package com.acg.easy.common.util;
 
+import com.acg.easy.common.config.StorageProperties.LocalProperties;
 import com.acg.easy.common.config.StorageProperties.SmbProperties;
 import com.acg.easy.common.entity.BrahmaException;
+import com.acg.easy.common.enums.ImageFormatEnum;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;
@@ -16,10 +18,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @UtilityClass
 public class FileUtil {
+    public static List<File> getFile(LocalProperties local) {
+        return getFile(local.getPath());
+    }
+
     public List<File> getFile(String filePath) {
         return getFile(new File(filePath));
     }
@@ -59,7 +66,7 @@ public class FileUtil {
 
             log.info("正在连接共享文件夹: {}", smbProperties.getShareName());
             try (DiskShare share = (DiskShare) session.connectShare(smbProperties.getShareName())) {
-                log.info("已连接到共享文件夹");
+                log.info("已连接到共享文件夹，开始访问文件路径：{}", smbProperties.getBasePath());
                 fileList = listSmbFiles(share, smbProperties.getBasePath());
             }
         } catch (IOException e) {
@@ -92,6 +99,28 @@ public class FileUtil {
         return fileList;
     }
 
+    /**
+     * 过滤出图片文件
+     *
+     * @param files 文件列表
+     * @return 图片文件列表
+     */
+    public List<File> filterImageFiles(List<File> files) {
+        if (files == null || files.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return files.stream().filter(file -> ImageFormatEnum.isImage(file.getName())).collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
+        SmbProperties smbProperties = new SmbProperties();
+        smbProperties.setHost("Easyacg");
+        smbProperties.setShareName("personal_folder");
+        smbProperties.setUsername("brahma");
+        smbProperties.setPassword("Sdfqwer@1");
+        smbProperties.setBasePath("\\Photos\\MobileBackup\\vivo X Flod3 Pro\\2024\\07");
+        List<File> smbFiles = getSmbFiles(smbProperties);
+        smbFiles.stream().map(File::getAbsolutePath).forEach(System.out::println);
+        System.out.println(smbFiles.size());
     }
 }

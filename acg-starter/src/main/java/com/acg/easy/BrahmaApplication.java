@@ -6,9 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * @author Brahma
+ */
 @SpringBootApplication
-@PropertySource(value = {"classpath:application.yml", "classpath:application-wx.yml"}
-        , factory = BrahmaPropertySourceFactory.class)
+@PropertySource(value = {"classpath:application.yml", "classpath:application-photo.yml",
+        "classpath:application-wx.yml"}, factory = BrahmaPropertySourceFactory.class)
 @ComponentScan("com.acg.easy.*")
 public class BrahmaApplication {
     public static void main(String[] args) {

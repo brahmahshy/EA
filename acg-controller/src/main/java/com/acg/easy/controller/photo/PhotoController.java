@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * 照片服务
+ *
+ * @author brahma
  */
 @RestController
 @RequestMapping("/photo")

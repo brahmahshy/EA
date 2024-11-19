@@ -6,14 +6,17 @@ import lombok.Setter;
 import java.io.File;
 import java.util.UUID;
 
+/**
+ * @author brahma
+ */
 @Getter
 @Setter
 public class PhotoVo {
     private String id;
     private String title;
     private String name;
-    private String img_num;
-    private String img_src;
+    private String imgNum;
+    private String imgSrc;
     private String guid;
 
     public static PhotoVo transfer(File file) {
@@ -21,8 +24,8 @@ public class PhotoVo {
         photoVo.setId(UUID.randomUUID().toString());
         photoVo.setTitle(file.getPath());
         photoVo.setName(file.getName());
-        photoVo.setImg_num("1");
-        photoVo.setImg_src(file.getAbsolutePath());
+        photoVo.setImgNum("1");
+        photoVo.setImgSrc(file.getAbsolutePath());
         photoVo.setGuid(UUID.randomUUID().toString());
         return photoVo;
     }

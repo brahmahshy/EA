@@ -4,6 +4,9 @@ import com.acg.easy.photo.entity.output.PhotoVo;
 
 import java.util.List;
 
+/**
+ * @author braham
+ */
 public interface PhotoService {
     /**
      * 根据配置项，读取现有的所有照片
