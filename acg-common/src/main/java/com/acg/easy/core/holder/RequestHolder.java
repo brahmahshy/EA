@@ -1,4 +1,4 @@
-package com.acg.easy.common.holder;
+package com.acg.easy.core.holder;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;

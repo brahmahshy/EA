@@ -1,4 +1,4 @@
-package com.acg.easy.common.config;
+package com.acg.easy.core.config;
 
 import org.springframework.context.annotation.Configuration;
 

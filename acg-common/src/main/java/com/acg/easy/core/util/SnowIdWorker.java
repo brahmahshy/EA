@@ -1,4 +1,4 @@
-package com.acg.easy.common.util;
+package com.acg.easy.core.util;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
@@ -17,8 +17,8 @@ public class SnowIdWorker {
     /**
      * 开始时间截 (建议用服务第一次上线的时间，到毫秒级的时间戳)
      */
-    private final long twepoch = Date.from(
-            LocalDateTime.of(2024, Month.APRIL, 1, 0, 0, 0, 0).toInstant(ZoneOffset.of("+8"))).getTime();
+    private final long twepoch =
+            Date.from(LocalDateTime.of(2024, Month.APRIL, 1, 0, 0, 0, 0).toInstant(ZoneOffset.of("+8"))).getTime();
 
     /**
      * 机器id所占的位数
@@ -92,10 +92,8 @@ public class SnowIdWorker {
         //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常
         if (timestamp < lastTimestamp) {
             throw new RuntimeException(
-                    String.format(
-                            "Clock moved backwards.  Refusing to generate id for %d milliseconds",
-                            lastTimestamp - timestamp
-                    ));
+                    String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds",
+                                  lastTimestamp - timestamp));
         }
 
         //如果是同一时间生成的，则进行毫秒内序列

@@ -1,6 +1,6 @@
 package com.acg.easy.controller.photo;
 
-import com.acg.easy.common.entity.ResponseVo;
+import com.acg.easy.core.entity.ResponseVo;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.service.PhotoService;
 import io.swagger.v3.oas.annotations.Operation;

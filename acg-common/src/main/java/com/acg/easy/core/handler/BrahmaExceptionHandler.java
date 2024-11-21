@@ -1,6 +1,6 @@
-package com.acg.easy.common.handler;
+package com.acg.easy.core.handler;
 
-import com.acg.easy.common.entity.ResponseVo;
+import com.acg.easy.core.entity.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

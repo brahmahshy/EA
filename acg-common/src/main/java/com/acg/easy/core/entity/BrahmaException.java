@@ -1,4 +1,4 @@
-package com.acg.easy.common.entity;
+package com.acg.easy.core.entity;
 
 public class BrahmaException extends RuntimeException {
     /**

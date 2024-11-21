@@ -1,4 +1,4 @@
-package com.acg.easy.common.holder;
+package com.acg.easy.core.holder;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

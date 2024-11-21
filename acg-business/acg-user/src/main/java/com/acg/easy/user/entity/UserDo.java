@@ -1,7 +1,7 @@
 package com.acg.easy.user.entity;
 
+import com.acg.easy.core.entity.TableBaseDo;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.acg.easy.common.entity.TableBaseDo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

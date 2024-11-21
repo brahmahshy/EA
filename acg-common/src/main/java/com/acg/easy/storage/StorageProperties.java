@@ -1,6 +1,5 @@
-package com.acg.easy.common.config;
+package com.acg.easy.storage;
 
-import com.acg.easy.common.enums.StorageMode;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

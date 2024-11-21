@@ -1,11 +1,11 @@
 package com.acg.easy.user.service.impl;
 
+import com.acg.easy.core.util.SnowIdWorker;
 import com.acg.easy.user.entity.UserDo;
 import com.acg.easy.user.entity.input.UserBo;
 import com.acg.easy.user.entity.output.UserVo;
 import com.acg.easy.user.mapper.UserMapper;
 import com.acg.easy.user.service.UserEditService;
-import com.acg.easy.common.util.SnowIdWorker;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

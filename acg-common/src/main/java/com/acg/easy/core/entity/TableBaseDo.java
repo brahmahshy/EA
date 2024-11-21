@@ -1,6 +1,6 @@
-package com.acg.easy.common.entity;
+package com.acg.easy.core.entity;
 
-import com.acg.easy.common.util.SnowIdWorker;
+import com.acg.easy.core.util.SnowIdWorker;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

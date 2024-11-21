@@ -1,11 +1,11 @@
 package com.acg.easy.photo.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.acg.easy.common.config.StorageProperties;
-import com.acg.easy.common.util.FileUtil;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.mapper.PhotoMapper;
 import com.acg.easy.photo.service.PhotoService;
+import com.acg.easy.storage.FileUtil;
+import com.acg.easy.storage.StorageProperties;
 import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

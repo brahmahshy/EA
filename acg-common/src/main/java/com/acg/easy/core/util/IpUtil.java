@@ -1,7 +1,7 @@
-package com.acg.easy.common.util;
+package com.acg.easy.core.util;
 
 import cn.hutool.core.util.StrUtil;
-import com.acg.easy.common.contents.WebHeaderContents;
+import com.acg.easy.core.contents.WebHeaderContents;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;

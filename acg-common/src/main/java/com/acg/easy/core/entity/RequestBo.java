@@ -1,4 +1,4 @@
-package com.acg.easy.common.entity;
+package com.acg.easy.core.entity;
 
 import lombok.Getter;
 import lombok.Setter;

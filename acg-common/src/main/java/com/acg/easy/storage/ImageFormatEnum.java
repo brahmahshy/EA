@@ -1,4 +1,4 @@
-package com.acg.easy.common.enums;
+package com.acg.easy.storage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

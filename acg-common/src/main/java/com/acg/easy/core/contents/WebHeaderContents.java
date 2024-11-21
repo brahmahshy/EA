@@ -1,4 +1,4 @@
-package com.acg.easy.common.contents;
+package com.acg.easy.core.contents;
 
 public interface WebHeaderContents {
     /**

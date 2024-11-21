@@ -1,6 +1,6 @@
 package com.acg.easy.photo.entity;
 
-import com.acg.easy.common.entity.TableBaseDo;
+import com.acg.easy.core.entity.TableBaseDo;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,12 +1,12 @@
 package com.acg.easy.controller.user;
 
+import com.acg.easy.core.entity.BaseIdBo;
+import com.acg.easy.core.entity.RequestBo;
+import com.acg.easy.core.entity.ResponseVo;
 import com.acg.easy.user.entity.UserDo;
 import com.acg.easy.user.entity.input.UserBo;
 import com.acg.easy.user.entity.output.UserVo;
 import com.acg.easy.user.service.UserEditService;
-import com.acg.easy.common.entity.BaseIdBo;
-import com.acg.easy.common.entity.RequestBo;
-import com.acg.easy.common.entity.ResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;

@@ -1,7 +1,7 @@
 package com.acg.easy.user.entity.output;
 
+import com.acg.easy.core.entity.BrahmaException;
 import com.acg.easy.user.entity.UserDo;
-import com.acg.easy.common.entity.BrahmaException;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;

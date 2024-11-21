@@ -1,8 +1,8 @@
 package com.acg.easy.controller.user;
 
+import com.acg.easy.core.entity.ResponseVo;
 import com.acg.easy.user.entity.output.UserVo;
 import com.acg.easy.user.service.UserQueryService;
-import com.acg.easy.common.entity.ResponseVo;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

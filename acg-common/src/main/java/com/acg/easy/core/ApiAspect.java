@@ -1,7 +1,7 @@
-package com.acg.easy.common.aspect;
+package com.acg.easy.core;
 
-import com.acg.easy.common.holder.RequestHolder;
-import com.acg.easy.common.util.IpUtil;
+import com.acg.easy.core.holder.RequestHolder;
+import com.acg.easy.core.util.IpUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

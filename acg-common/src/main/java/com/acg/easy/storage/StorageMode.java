@@ -1,4 +1,4 @@
-package com.acg.easy.common.enums;
+package com.acg.easy.storage;
 
 public enum StorageMode {
     LOCAL,

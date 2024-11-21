@@ -1,4 +1,4 @@
-package com.acg.easy.common.entity;
+package com.acg.easy.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,8 @@
-package com.acg.easy.common.util;
+package com.acg.easy.storage;
 
-import com.acg.easy.common.config.StorageProperties.LocalProperties;
-import com.acg.easy.common.config.StorageProperties.SmbProperties;
-import com.acg.easy.common.entity.BrahmaException;
-import com.acg.easy.common.enums.ImageFormatEnum;
+import com.acg.easy.core.entity.BrahmaException;
+import com.acg.easy.storage.StorageProperties.LocalProperties;
+import com.acg.easy.storage.StorageProperties.SmbProperties;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;

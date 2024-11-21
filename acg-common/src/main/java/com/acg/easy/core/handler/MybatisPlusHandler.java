@@ -1,4 +1,4 @@
-package com.acg.easy.common.handler;
+package com.acg.easy.core.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
