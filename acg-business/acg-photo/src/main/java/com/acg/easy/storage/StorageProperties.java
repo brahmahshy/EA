@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "easyacg.storage")
 public class StorageProperties {
-    private StorageMode mode = StorageMode.LOCAL;
+    private StorageModeEnum mode = StorageModeEnum.LOCAL;
     private LocalProperties local;
     private SmbProperties smb;
 
