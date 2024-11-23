@@ -1,55 +1,42 @@
-package com.acg.easy.storage;
+package com.acg.easy.photo.service.impl.storage;
 
 import com.acg.easy.core.entity.BrahmaException;
-import com.acg.easy.storage.StorageProperties.LocalProperties;
-import com.acg.easy.storage.StorageProperties.SmbProperties;
+import com.acg.easy.photo.service.StorageService;
+import com.acg.easy.storage.StorageModeEnum;
+import com.acg.easy.storage.properties.SmbProperties;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
 import com.hierynomus.smbj.session.Session;
 import com.hierynomus.smbj.share.DiskShare;
-import lombok.experimental.UtilityClass;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
+/**
+ * SMB相关操作实现类
+ *
+ * @author brahma
+ */
 @Slf4j
-@UtilityClass
-public class FileUtil {
-    public static List<File> getFile(LocalProperties local) {
-        return getFile(local.getPath());
+@Service
+public class SmbStorageServiceImpl implements StorageService {
+    @Resource
+    private SmbProperties smbProperties;
+
+    @Override
+    public StorageModeEnum getStorage() {
+        return StorageModeEnum.SMB;
     }
 
-    public List<File> getFile(String filePath) {
-        return getFile(new File(filePath));
-    }
-
-    public List<File> getFile(File file) {
-        if (!file.exists()) {
-            throw new BrahmaException("文件或文件夹不存在！！！");
-        }
-
-        List<File> fileList = new ArrayList<>();
-
-        for (File listFile : Objects.requireNonNull(file.listFiles())) {
-            if (listFile.isDirectory()) {
-                fileList.addAll(getFile(listFile));
-                continue;
-            }
-
-            fileList.add(listFile);
-        }
-
-        return fileList;
-    }
-
-    public List<File> getSmbFiles(SmbProperties smbProperties) {
+    @Override
+    public List<File> readFileList() {
         List<File> fileList;
 
         try (SMBClient client = new SMBClient()) {
@@ -96,30 +83,5 @@ public class FileUtil {
         }
 
         return fileList;
-    }
-
-    /**
-     * 过滤出图片文件
-     *
-     * @param files 文件列表
-     * @return 图片文件列表
-     */
-    public List<File> filterImageFiles(List<File> files) {
-        if (files == null || files.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return files.stream().filter(file -> ImageFormatEnum.isImage(file.getName())).collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        SmbProperties smbProperties = new SmbProperties();
-        smbProperties.setHost("Easyacg");
-        smbProperties.setShareName("personal_folder");
-        smbProperties.setUsername("brahma");
-        smbProperties.setPassword("Sdfqwer@1");
-        smbProperties.setBasePath("\\Photos\\MobileBackup\\vivo X Flod3 Pro\\2024\\07");
-        List<File> smbFiles = getSmbFiles(smbProperties);
-        smbFiles.stream().map(File::getAbsolutePath).forEach(System.out::println);
-        System.out.println(smbFiles.size());
     }
 }

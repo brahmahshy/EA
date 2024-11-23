@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Administrator
+ */
 @UtilityClass
 public class WebpUtil {
     private void convertJpegToWebpWithLossyCompression() {

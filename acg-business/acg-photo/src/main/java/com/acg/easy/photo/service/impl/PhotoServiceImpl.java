@@ -4,17 +4,21 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.mapper.PhotoMapper;
 import com.acg.easy.photo.service.PhotoService;
-import com.acg.easy.storage.FileUtil;
+import com.acg.easy.photo.service.StorageService;
+import com.acg.easy.storage.ImageFormatEnum;
+import com.acg.easy.storage.StorageFactory;
 import com.acg.easy.storage.StorageModeEnum;
-import com.acg.easy.storage.StorageProperties;
 import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Brahma
@@ -23,22 +27,19 @@ import java.util.List;
 @Slf4j
 @Service
 public class PhotoServiceImpl implements PhotoService {
-    @Resource
-    private PhotoMapper photoMapper;
+    @Value("${easyacg.storage.mode:LOCAL}")
+    private StorageModeEnum storageMode;
 
     @Resource
-    private StorageProperties storageProperties;
+    private PhotoMapper photoMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<PhotoVo> readPhoto() {
-        List<File> files = switch (storageProperties.getMode()) {
-            case SMB -> FileUtil.getSmbFiles(storageProperties.getSmb());
-            default -> FileUtil.getFile(storageProperties.getLocal());
-        };
-        files = FileUtil.filterImageFiles(files);
-        // todo 后续需要优化为多线程执行，或者 批量插入
-        // todo 使用多线程需要注意 事务安全问题
+        StorageService service = StorageFactory.getService(storageMode);
+        List<File> files = service.readFileList();
+
+        files = filterImageFiles(files);
         if (CollectionUtil.isEmpty(files)) {
             return null;
         }
@@ -49,5 +50,18 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public void migratePhotos(StorageModeEnum fromStorage, StorageModeEnum toStorage) {
 
+    }
+
+    /**
+     * 过滤出图片文件
+     *
+     * @param files 文件列表
+     * @return 图片文件列表
+     */
+    private List<File> filterImageFiles(List<File> files) {
+        if (files == null || files.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return files.stream().filter(file -> ImageFormatEnum.isImage(file.getName())).collect(Collectors.toList());
     }
 }
