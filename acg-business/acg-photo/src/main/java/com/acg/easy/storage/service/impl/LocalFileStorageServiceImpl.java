@@ -1,10 +1,12 @@
 package com.acg.easy.storage.service.impl;
 
-import com.acg.easy.core.entity.BrahmaException;
+import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.storage.StorageModeEnum;
 import com.acg.easy.storage.properties.LocalProperties;
 import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.Objects;
  *
  * @author brahma
  */
+@Slf4j
+@Service
 public class LocalFileStorageServiceImpl implements StorageService {
     @Resource
     private LocalProperties localProperties;
@@ -34,7 +38,7 @@ public class LocalFileStorageServiceImpl implements StorageService {
 
     private List<File> getFile(File file) {
         if (!file.exists()) {
-            throw new BrahmaException("文件或文件夹不存在！！！");
+            throw EasyacgException.build("文件或文件夹不存在！！！");
         }
 
         List<File> fileList = new ArrayList<>();

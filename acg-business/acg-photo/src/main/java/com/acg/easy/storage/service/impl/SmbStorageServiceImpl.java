@@ -1,6 +1,6 @@
 package com.acg.easy.storage.service.impl;
 
-import com.acg.easy.core.entity.BrahmaException;
+import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.storage.StorageModeEnum;
 import com.acg.easy.storage.properties.SmbProperties;
 import com.acg.easy.storage.service.StorageService;
@@ -57,7 +57,7 @@ public class SmbStorageServiceImpl implements StorageService {
             }
         } catch (IOException e) {
             log.error("SMB连接失败", e);
-            throw new BrahmaException("SMB连接失败: " + e.getMessage());
+            throw EasyacgException.build("SMB连接失败: " + e.getMessage());
         }
 
         return fileList;

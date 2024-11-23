@@ -1,6 +1,6 @@
 package com.acg.easy.user.entity.output;
 
-import com.acg.easy.core.entity.BrahmaException;
+import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.user.entity.UserDo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class UserVo {
 
     public static UserVo buildByDo(UserDo userDo) {
         if (userDo == null) {
-            throw new BrahmaException();
+            throw EasyacgException.build("用户不存在！！！");
         }
 
         UserVo userVo = new UserVo();

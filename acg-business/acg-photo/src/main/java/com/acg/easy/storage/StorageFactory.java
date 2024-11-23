@@ -1,5 +1,6 @@
 package com.acg.easy.storage;
 
+import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -28,6 +29,10 @@ public class StorageFactory {
     }
 
     public static StorageService getService(StorageModeEnum storageModeEnum) {
-        return storageEnumServiceMap.get(storageModeEnum);
+        StorageService storageService = storageEnumServiceMap.get(storageModeEnum);
+        if (storageService == null) {
+            throw EasyacgException.build("{0} 不存在对应的存储策略实现，请核实！！！", storageModeEnum);
+        }
+        return storageService;
     }
 }
