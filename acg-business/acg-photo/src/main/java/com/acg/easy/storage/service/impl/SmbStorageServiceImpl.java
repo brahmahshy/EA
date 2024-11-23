@@ -1,9 +1,9 @@
-package com.acg.easy.photo.service.impl.storage;
+package com.acg.easy.storage.service.impl;
 
 import com.acg.easy.core.entity.BrahmaException;
-import com.acg.easy.photo.service.StorageService;
 import com.acg.easy.storage.StorageModeEnum;
 import com.acg.easy.storage.properties.SmbProperties;
+import com.acg.easy.storage.service.StorageService;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;

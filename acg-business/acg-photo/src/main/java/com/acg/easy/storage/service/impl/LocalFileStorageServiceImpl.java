@@ -1,9 +1,9 @@
-package com.acg.easy.photo.service.impl.storage;
+package com.acg.easy.storage.service.impl;
 
 import com.acg.easy.core.entity.BrahmaException;
-import com.acg.easy.photo.service.StorageService;
 import com.acg.easy.storage.StorageModeEnum;
 import com.acg.easy.storage.properties.LocalProperties;
+import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.Resource;
 
 import java.io.File;

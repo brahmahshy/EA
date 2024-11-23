@@ -1,4 +1,4 @@
-package com.acg.easy.photo.service;
+package com.acg.easy.storage.service;
 
 import com.acg.easy.storage.StorageModeEnum;
 

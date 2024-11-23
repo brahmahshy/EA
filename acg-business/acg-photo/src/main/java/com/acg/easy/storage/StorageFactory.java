@@ -1,6 +1,6 @@
 package com.acg.easy.storage;
 
-import com.acg.easy.photo.service.StorageService;
+import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
