@@ -1,4 +1,4 @@
-package com.acg.easy.photo.entity;
+package com.acg.easy.image.entity;
 
 import com.acg.easy.core.entity.TableBaseDo;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -7,10 +7,13 @@ import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author barhma
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "photo", schema = "brahma")
-public class PhotoDo extends TableBaseDo {
+@TableName(value = "image", schema = "brahma")
+public class ImageDo extends TableBaseDo {
     /**
      * 照片名称
      */

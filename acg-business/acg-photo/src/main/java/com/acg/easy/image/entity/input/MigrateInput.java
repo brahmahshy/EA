@@ -1,4 +1,4 @@
-package com.acg.easy.photo.entity.input;
+package com.acg.easy.image.entity.input;
 
 import com.acg.easy.storage.StorageModeEnum;
 import jakarta.validation.Valid;

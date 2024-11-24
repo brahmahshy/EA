@@ -1,11 +1,11 @@
-package com.acg.easy.photo.service.impl;
+package com.acg.easy.image.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.acg.easy.photo.entity.input.MigrateInput;
-import com.acg.easy.photo.entity.output.PhotoVo;
-import com.acg.easy.photo.mapper.PhotoMapper;
-import com.acg.easy.photo.service.PhotoService;
-import com.acg.easy.storage.ImageFormatEnum;
+import com.acg.easy.image.ImageFormatEnum;
+import com.acg.easy.image.entity.input.MigrateInput;
+import com.acg.easy.image.entity.output.ImageVo;
+import com.acg.easy.image.mapper.ImageMapper;
+import com.acg.easy.image.service.ImageService;
 import com.acg.easy.storage.StorageFactory;
 import com.acg.easy.storage.StorageModeEnum;
 import com.acg.easy.storage.service.StorageService;
@@ -27,16 +27,16 @@ import java.util.stream.Collectors;
 @Data
 @Slf4j
 @Service
-public class PhotoServiceImpl implements PhotoService {
+public class ImageServiceImpl implements ImageService {
     @Value("${easyacg.storage.mode:LOCAL}")
     private StorageModeEnum storageMode;
 
     @Resource
-    private PhotoMapper photoMapper;
+    private ImageMapper imageMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<PhotoVo> readPhoto() {
+    public List<ImageVo> readImage() {
         StorageService service = StorageFactory.getService(storageMode);
         List<File> files = service.readFileList();
 
@@ -45,11 +45,11 @@ public class PhotoServiceImpl implements PhotoService {
             return null;
         }
 
-        return files.stream().map(PhotoVo::transfer).toList();
+        return files.stream().map(ImageVo::transfer).toList();
     }
 
     @Override
-    public void migratePhotos(MigrateInput input) {
+    public void migrateImages(MigrateInput input) {
 
     }
 

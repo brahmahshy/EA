@@ -1,4 +1,4 @@
-package com.acg.easy.photo.util;
+package com.acg.easy.image.util;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;

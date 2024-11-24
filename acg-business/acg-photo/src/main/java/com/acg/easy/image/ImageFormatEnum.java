@@ -1,4 +1,4 @@
-package com.acg.easy.storage;
+package com.acg.easy.image;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,7 +47,7 @@ public enum ImageFormatEnum {
         }
         String lowerFileName = fileName.toLowerCase();
         return Arrays.stream(ImageFormatEnum.values())
-                     .anyMatch(format -> lowerFileName.endsWith(format.getExtension()));
+                .anyMatch(format -> lowerFileName.endsWith(format.getExtension()));
     }
 
     /**
@@ -62,9 +62,9 @@ public enum ImageFormatEnum {
         }
         String lowerFileName = fileName.toLowerCase();
         return Arrays.stream(ImageFormatEnum.values())
-                     .filter(format -> lowerFileName.endsWith(format.getExtension()))
-                     .findFirst()
-                     .map(format -> format.getExtension().substring(1))
-                     .orElse("");
+                .filter(format -> lowerFileName.endsWith(format.getExtension()))
+                .findFirst()
+                .map(format -> format.getExtension().substring(1))
+                .orElse("");
     }
 } 

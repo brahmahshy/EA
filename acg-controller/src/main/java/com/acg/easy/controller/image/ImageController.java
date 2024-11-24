@@ -1,9 +1,9 @@
-package com.acg.easy.controller.photo;
+package com.acg.easy.controller.image;
 
 import com.acg.easy.core.entity.ResponseVo;
-import com.acg.easy.photo.entity.input.MigrateInput;
-import com.acg.easy.photo.entity.output.PhotoVo;
-import com.acg.easy.photo.service.PhotoService;
+import com.acg.easy.image.entity.input.MigrateInput;
+import com.acg.easy.image.entity.output.ImageVo;
+import com.acg.easy.image.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -20,10 +20,10 @@ import java.util.List;
  * @author brahma
  */
 @RestController
-@RequestMapping("/photo")
-public class PhotoController {
+@RequestMapping("/image")
+public class ImageController {
     @Resource
-    private PhotoService photoService;
+    private ImageService imageService;
 
     /**
      * 读取照片
@@ -32,8 +32,8 @@ public class PhotoController {
      */
     @GetMapping("/read")
     @Operation(description = "根据配置读取照片到服务器")
-    public ResponseVo<List<PhotoVo>> readPhoto() {
-        return ResponseVo.success(photoService.readPhoto());
+    public ResponseVo<List<ImageVo>> readImage() {
+        return ResponseVo.success(imageService.readImage());
     }
 
     /**
@@ -43,8 +43,8 @@ public class PhotoController {
      */
     @GetMapping("/migrate")
     @Operation(description = "将图片从A迁移到B")
-    public ResponseVo<Void> migratePhotos(@RequestBody @Validated MigrateInput input) {
-        photoService.migratePhotos(input);
+    public ResponseVo<Void> migrateImages(@RequestBody @Validated MigrateInput input) {
+        imageService.migrateImages(input);
         return ResponseVo.success();
     }
 }

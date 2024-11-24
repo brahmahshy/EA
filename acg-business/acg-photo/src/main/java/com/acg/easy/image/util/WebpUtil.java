@@ -1,4 +1,4 @@
-package com.acg.easy.photo.util;
+package com.acg.easy.image.util;
 
 import com.luciad.imageio.webp.WebPWriteParam;
 import lombok.experimental.UtilityClass;
