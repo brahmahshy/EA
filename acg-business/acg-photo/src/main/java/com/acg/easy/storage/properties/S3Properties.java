@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
  *
  * @author brahma
  */
-
 @Data
 @Component
 @ConfigurationProperties(prefix = "easyacg.storage.s3")

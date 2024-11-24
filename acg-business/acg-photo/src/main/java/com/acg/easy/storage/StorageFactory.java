@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
  */
 @Component
 public class StorageFactory {
-    @Resource
-    private List<StorageService> storageServiceList;
+    private static Map<StorageModeEnum, StorageService<Object>> storageEnumServiceMap;
 
-    private static Map<StorageModeEnum, StorageService> storageEnumServiceMap;
+    @Resource
+    private List<StorageService<Object>> storageServiceList;
 
     @PostConstruct
     public void init() {
@@ -28,8 +28,8 @@ public class StorageFactory {
                 .collect(Collectors.toMap(StorageService::getStorage, storageService -> storageService));
     }
 
-    public static StorageService getService(StorageModeEnum storageModeEnum) {
-        StorageService storageService = storageEnumServiceMap.get(storageModeEnum);
+    public static StorageService<Object> getService(StorageModeEnum storageModeEnum) {
+        StorageService<Object> storageService = storageEnumServiceMap.get(storageModeEnum);
         if (storageService == null) {
             throw EasyacgException.build("{0} 不存在对应的存储策略实现，请核实！！！", storageModeEnum);
         }

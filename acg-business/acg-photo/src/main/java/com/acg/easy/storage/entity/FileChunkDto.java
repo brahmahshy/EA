@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class FileChunk {
+public class FileChunkDto {
     /**
      * 分片序号
      */

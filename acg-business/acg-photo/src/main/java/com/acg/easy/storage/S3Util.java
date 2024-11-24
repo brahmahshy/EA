@@ -1,11 +1,10 @@
 package com.acg.easy.storage;
 
 import com.acg.easy.core.entity.EasyacgException;
-import com.acg.easy.storage.entity.FileChunk;
+import com.acg.easy.storage.entity.FileChunkDto;
 import com.acg.easy.storage.entity.S3MultipartDto;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
@@ -27,7 +26,6 @@ import java.util.List;
  * @author brahma
  */
 @Slf4j
-@Component
 @UtilityClass
 public class S3Util {
     /**
@@ -129,7 +127,7 @@ public class S3Util {
      * @param chunk        分片数据对象，包含分片号、数据等信息
      * @return 已完成的分片信息，包含分片号和ETag
      */
-    public CompletedPart multipartUpload(S3MultipartDto multipartDto, FileChunk chunk) {
+    public CompletedPart multipartUpload(S3MultipartDto multipartDto, FileChunkDto chunk) {
         int partNumber = chunk.getChunkNumber();
         log.info("开始上传分片 - 桶: {}, 对象名: {}, 分片号: {}", multipartDto.getBucketName(),
                  multipartDto.getObjectName(), partNumber);
@@ -186,11 +184,11 @@ public class S3Util {
      * @return 分片信息列表
      * @throws EasyacgException 当文件读取失败时抛出
      */
-    private static List<FileChunk> splitFile(File file) {
+    private static List<FileChunkDto> splitFile(File file) {
         log.info("开始分片文件: {}, 文件大小: {} bytes, 分片大小: {} bytes", file.getName(), file.length(),
                  CONTENT_LENGTH);
 
-        List<FileChunk> chunks = new ArrayList<>();
+        List<FileChunkDto> chunks = new ArrayList<>();
 
         try (FileInputStream fis = new FileInputStream(file)) {
             // 文件总大小
@@ -209,7 +207,7 @@ public class S3Util {
                 int bytesRead = fis.read(chunk);
                 if (bytesRead != -1) {
                     // 创建分片对象
-                    FileChunk fileChunk = FileChunk.builder()
+                    FileChunkDto fileChunk = FileChunkDto.builder()
                             .chunkNumber(chunkNumber)
                             .startPosition(position)
                             .size(bytesRead)
