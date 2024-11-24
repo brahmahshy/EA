@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * controller接口，统一返参
+ *
+ * @author brahma
+ */
 @Getter
 @Setter
 public class ResponseVo<T> {
@@ -24,6 +29,10 @@ public class ResponseVo<T> {
     public ResponseVo(ResponseError error, ResponseStatus status) {
         this.error = error;
         this.status = status;
+    }
+
+    public static ResponseVo<Void> success() {
+        return ResponseVo.success(null);
     }
 
     public static <T> ResponseVo<T> success(T vo) {

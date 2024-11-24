@@ -1,7 +1,7 @@
 package com.acg.easy.photo.service;
 
+import com.acg.easy.photo.entity.input.MigrateInput;
 import com.acg.easy.photo.entity.output.PhotoVo;
-import com.acg.easy.storage.StorageModeEnum;
 
 import java.util.List;
 
@@ -19,8 +19,7 @@ public interface PhotoService {
     /**
      * 将图片从 {@code fromStorage} 迁移至 {@code toStorage}
      *
-     * @param fromStorage 从xxx存储策略迁出
-     * @param toStorage   迁入到xxx存储策略
+     * @param input 入参
      */
-    void migratePhotos(StorageModeEnum fromStorage, StorageModeEnum toStorage);
+    void migratePhotos(MigrateInput input);
 }

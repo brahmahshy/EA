@@ -1,6 +1,7 @@
 package com.acg.easy.photo.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.acg.easy.photo.entity.input.MigrateInput;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.mapper.PhotoMapper;
 import com.acg.easy.photo.service.PhotoService;
@@ -48,7 +49,7 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public void migratePhotos(StorageModeEnum fromStorage, StorageModeEnum toStorage) {
+    public void migratePhotos(MigrateInput input) {
 
     }
 

@@ -1,11 +1,14 @@
 package com.acg.easy.controller.photo;
 
 import com.acg.easy.core.entity.ResponseVo;
+import com.acg.easy.photo.entity.input.MigrateInput;
 import com.acg.easy.photo.entity.output.PhotoVo;
 import com.acg.easy.photo.service.PhotoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +34,17 @@ public class PhotoController {
     @Operation(description = "根据配置读取照片到服务器")
     public ResponseVo<List<PhotoVo>> readPhoto() {
         return ResponseVo.success(photoService.readPhoto());
+    }
+
+    /**
+     * 迁移照片
+     *
+     * @return 是否成功
+     */
+    @GetMapping("/migrate")
+    @Operation(description = "将图片从A迁移到B")
+    public ResponseVo<Void> migratePhotos(@RequestBody @Validated MigrateInput input) {
+        photoService.migratePhotos(input);
+        return ResponseVo.success();
     }
 }
