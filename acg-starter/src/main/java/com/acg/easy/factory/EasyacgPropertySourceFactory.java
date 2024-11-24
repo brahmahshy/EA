@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @Slf4j
 @Component
-public class BrahmaPropertySourceFactory implements PropertySourceFactory {
+public class EasyacgPropertySourceFactory implements PropertySourceFactory {
     @Override
     public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
         Resource resourceResource = resource.getResource();
@@ -29,12 +29,9 @@ public class BrahmaPropertySourceFactory implements PropertySourceFactory {
         }
 
         log.debug("read resource: {} successful.", resourceResource.getFilename());
-        if (resourceResource.getFilename().endsWith(".yml")
-                || resourceResource.getFilename().endsWith(".yaml")
-        ) {
-
-            List<PropertySource<?>> sources = new YamlPropertySourceLoader()
-                    .load(resourceResource.getFilename(), resourceResource);
+        if (resourceResource.getFilename().endsWith(".yml") || resourceResource.getFilename().endsWith(".yaml")) {
+            List<PropertySource<?>> sources =
+                    new YamlPropertySourceLoader().load(resourceResource.getFilename(), resourceResource);
             return sources.getFirst();
         }
 
