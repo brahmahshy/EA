@@ -30,13 +30,5 @@
             <artifactId>swagger-core</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-
-        <!-- 用于集成SMB连接 -->
-        <dependency>
-            <groupId>com.hierynomus</groupId>
-            <artifactId>smbj</artifactId>
-            <version>0.13.0</version>
-        </dependency>
-
     </dependencies>
 </project>

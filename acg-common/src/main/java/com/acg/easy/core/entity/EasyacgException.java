@@ -15,7 +15,7 @@ public class EasyacgException extends RuntimeException {
         super(message);
     }
 
-    public EasyacgException(String message, Throwable cause) {
+    private EasyacgException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -25,5 +25,13 @@ public class EasyacgException extends RuntimeException {
 
     public static EasyacgException build(String message, Object... args) {
         return new EasyacgException(MessageFormat.format(message, args));
+    }
+
+    public static EasyacgException build(String message, Throwable cause) {
+        return new EasyacgException(message, cause);
+    }
+
+    public static EasyacgException build(Throwable cause, String message, Object... args) {
+        return new EasyacgException(MessageFormat.format(message, args), cause);
     }
 }

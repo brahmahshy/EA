@@ -10,5 +10,6 @@ package com.acg.easy.storage;
 public enum StorageModeEnum {
     LOCAL,
     SMB,
-    S3
+    S3,
+    R2
 } 
