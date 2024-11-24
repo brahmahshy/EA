@@ -2,15 +2,14 @@ package com.acg.easy.controller.image;
 
 import com.acg.easy.core.entity.ResponseVo;
 import com.acg.easy.image.entity.input.MigrateInput;
+import com.acg.easy.image.entity.input.UploadInput;
 import com.acg.easy.image.entity.output.ImageVo;
 import com.acg.easy.image.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ import java.util.List;
  *
  * @author brahma
  */
+@Slf4j
 @RestController
 @RequestMapping("/image")
 public class ImageController {
@@ -37,13 +37,26 @@ public class ImageController {
     }
 
     /**
+     * 上传照片
+     *
+     * @return 是否成功
+     */
+    @PostMapping(value = "/upload")
+    @Operation(description = "将本地图像上传到其他地方")
+    public ResponseVo<Void> uploadImage(@RequestPart("file") MultipartFile file, @RequestBody UploadInput input) {
+        log.info("开始处理文件迁移请求 - 文件名: {}, 大小: {} bytes", file.getOriginalFilename(), file.getSize());
+        imageService.uploadImage(file, input);
+        return ResponseVo.success();
+    }
+
+    /**
      * 迁移照片
      *
      * @return 是否成功
      */
-    @GetMapping("/migrate")
+    @PostMapping(value = "/migrate")
     @Operation(description = "将图片从A迁移到B")
-    public ResponseVo<Void> migrateImages(@RequestBody @Validated MigrateInput input) {
+    public ResponseVo<Void> migrateImages(@RequestBody MigrateInput input) {
         imageService.migrateImages(input);
         return ResponseVo.success();
     }
