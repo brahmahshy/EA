@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class SmbStorageServiceImpl implements StorageService {
+public class SmbStorageServiceImpl implements StorageService<File> {
     @Resource
     private SmbProperties smbProperties;
 
@@ -36,7 +38,7 @@ public class SmbStorageServiceImpl implements StorageService {
     }
 
     @Override
-    public List<File> readFileList() {
+    public List<File> listObjects() {
         List<File> fileList;
 
         try (SMBClient client = new SMBClient()) {
@@ -83,5 +85,10 @@ public class SmbStorageServiceImpl implements StorageService {
         }
 
         return fileList;
+    }
+
+    @Override
+    public void putObject(InputStream file, Path path) {
+
     }
 }

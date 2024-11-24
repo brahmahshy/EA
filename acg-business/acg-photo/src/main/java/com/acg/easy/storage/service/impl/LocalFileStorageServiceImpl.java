@@ -7,8 +7,13 @@ import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +25,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class LocalFileStorageServiceImpl implements StorageService {
+public class LocalFileStorageServiceImpl implements StorageService<File> {
     @Resource
     private LocalProperties localProperties;
 
@@ -30,7 +35,7 @@ public class LocalFileStorageServiceImpl implements StorageService {
     }
 
     @Override
-    public List<File> readFileList() {
+    public List<File> listObjects() {
         String path = localProperties.getPath();
         File file = new File(path);
         return getFile(file);
@@ -53,5 +58,10 @@ public class LocalFileStorageServiceImpl implements StorageService {
         }
 
         return fileList;
+    }
+
+    @Override
+    public void putObject(InputStream inputStream, Path path) throws IOException {
+        FileCopyUtils.copy(inputStream, Files.newOutputStream(path));
     }
 }
