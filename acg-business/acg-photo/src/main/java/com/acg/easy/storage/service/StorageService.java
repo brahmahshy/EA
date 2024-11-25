@@ -1,6 +1,7 @@
 package com.acg.easy.storage.service;
 
 import com.acg.easy.storage.StorageModeEnum;
+import com.acg.easy.storage.entity.output.FileInfoVo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author brahma
  */
-public interface StorageService<T> {
+public interface StorageService {
     /**
      * 获取实现类对应存储类型
      *
@@ -25,7 +26,7 @@ public interface StorageService<T> {
      *
      * @return 对象集合
      */
-    List<T> listObjects();
+    List<FileInfoVo> listObjects();
 
     /**
      * 上传对象

@@ -13,7 +13,6 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.S3Configuration;
-import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.net.URI;
 
@@ -24,7 +23,7 @@ import java.net.URI;
  */
 @Slf4j
 @Service
-public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements StorageService<S3Object> {
+public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements StorageService {
     @Resource
     private R2Properties r2Properties;
 
@@ -52,8 +51,12 @@ public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl 
                 .build();
 
         S3Util.listObjects("easyacg-small")
-                .forEach(object -> System.out.printf("* %s (size: %d bytes, modified: %s)%n", object.key(),
-                                                     object.size(), object.lastModified()));
+                .forEach(object -> System.out.printf(
+                        "* %s (size: %d bytes, modified: %s)%n",
+                        object.key(),
+                        object.size(),
+                        object.lastModified()
+                ));
 
     }
 }

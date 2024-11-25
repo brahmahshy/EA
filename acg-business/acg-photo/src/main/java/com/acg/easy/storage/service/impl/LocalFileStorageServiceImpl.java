@@ -1,7 +1,10 @@
 package com.acg.easy.storage.service.impl;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.io.FileUtil;
 import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.storage.StorageModeEnum;
+import com.acg.easy.storage.entity.output.FileInfoVo;
 import com.acg.easy.storage.properties.LocalProperties;
 import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.Resource;
@@ -25,7 +28,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class LocalFileStorageServiceImpl implements StorageService<File> {
+public class LocalFileStorageServiceImpl implements StorageService {
     @Resource
     private LocalProperties localProperties;
 
@@ -35,10 +38,21 @@ public class LocalFileStorageServiceImpl implements StorageService<File> {
     }
 
     @Override
-    public List<File> listObjects() {
-        String path = localProperties.getPath();
-        File file = new File(path);
-        return getFile(file);
+    public List<FileInfoVo> listObjects() {
+        String basePath = localProperties.getPath();
+        File baseDir = new File(basePath);
+        List<File> files = getFile(baseDir);
+
+        return files.stream()
+                .map(file -> FileInfoVo.builder()
+                        .fileName(file.getName())
+                        .filePath(basePath)
+                        .fileSize(file.length())
+                        .lastModified(LocalDateTimeUtil.of(file.lastModified()))
+                        .fileType(FileUtil.extName(file))
+                        .inputStream(FileUtil.getInputStream(file))
+                        .build())
+                .toList();
     }
 
     private List<File> getFile(File file) {

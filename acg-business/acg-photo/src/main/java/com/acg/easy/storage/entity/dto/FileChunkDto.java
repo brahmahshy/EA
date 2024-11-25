@@ -1,4 +1,4 @@
-package com.acg.easy.storage.entity;
+package com.acg.easy.storage.entity.dto;
 
 import lombok.Builder;
 import lombok.Data;

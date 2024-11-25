@@ -1,19 +1,20 @@
 package com.acg.easy.storage;
 
 import com.acg.easy.core.entity.EasyacgException;
-import com.acg.easy.storage.entity.FileChunkDto;
-import com.acg.easy.storage.entity.S3MultipartDto;
+import com.acg.easy.storage.entity.dto.FileChunkDto;
+import com.acg.easy.storage.entity.dto.S3MultipartDto;
+import com.acg.easy.storage.entity.output.FileInfoVo;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * S3操作工具类
@@ -62,14 +63,14 @@ public class S3Util {
      *
      * @param bucketName S3桶名称
      * @param objectName 对象名称（存储在S3中的文件名）
-     * @param file       要上传的本地文件
+     * @param infoVo     要上传的本地文件
      */
-    public void uploadObjects(String bucketName, String objectName, File file) {
+    public void uploadObjects(String bucketName, String objectName, FileInfoVo infoVo) {
         // 判断文件大小是否超过5MB阈值
-        long fileSize = file.length();
+        long fileSize = infoVo.getFileSize();
         if (fileSize <= CONTENT_LENGTH) {
             // 小于5MB使用普通上传
-            upload(bucketName, objectName, RequestBody.fromFile(file));
+            upload(bucketName, objectName, RequestBody.fromInputStream(infoVo.getInputStream(), fileSize));
         } else {
             // 创建分片上传请求
             S3MultipartDto multipartDto = new S3MultipartDto();
@@ -78,8 +79,9 @@ public class S3Util {
             multipartDto.setUploadId(createMultipartUpload(multipartDto));
 
             // 分片上传
-            List<CompletedPart> parts =
-                    splitFile(file).stream().map(chunk -> multipartUpload(multipartDto, chunk)).toList();
+            List<CompletedPart> parts = splitFile(infoVo).stream()
+                    .map(chunk -> multipartUpload(multipartDto, chunk))
+                    .collect(Collectors.toList());
 
             completeMultipartUpload(multipartDto, parts);
             log.info("分片上传完成 - 桶: {}, 对象名: {}", bucketName, objectName);
@@ -129,8 +131,12 @@ public class S3Util {
      */
     public CompletedPart multipartUpload(S3MultipartDto multipartDto, FileChunkDto chunk) {
         int partNumber = chunk.getChunkNumber();
-        log.info("开始上传分片 - 桶: {}, 对象名: {}, 分片号: {}", multipartDto.getBucketName(),
-                 multipartDto.getObjectName(), partNumber);
+        log.info(
+                "开始上传分片 - 桶: {}, 对象名: {}, 分片号: {}",
+                multipartDto.getBucketName(),
+                multipartDto.getObjectName(),
+                partNumber
+        );
 
         // 构建分片上传请求
         UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
@@ -160,8 +166,13 @@ public class S3Util {
      * @param parts        所有已完成分片的列表
      */
     public void completeMultipartUpload(S3MultipartDto multipartDto, List<CompletedPart> parts) {
-        log.info("开始完成分片上传 - 桶: {}, 对象名: {}, uploadId: {}, 总分片数: {}", multipartDto.getBucketName(),
-                 multipartDto.getObjectName(), multipartDto.getUploadId(), parts.size());
+        log.info(
+                "开始完成分片上传 - 桶: {}, 对象名: {}, uploadId: {}, 总分片数: {}",
+                multipartDto.getBucketName(),
+                multipartDto.getObjectName(),
+                multipartDto.getUploadId(),
+                parts.size()
+        );
 
         CompletedMultipartUpload completedMultipartUpload = CompletedMultipartUpload.builder().parts(parts).build();
 
@@ -180,50 +191,56 @@ public class S3Util {
      * 将文件分割成指定大小的分片
      * 用于大文件的分片上传准备
      *
-     * @param file 要分片的源文件
+     * @param infoVo 要分片的源文件信息对象
      * @return 分片信息列表
      * @throws EasyacgException 当文件读取失败时抛出
      */
-    private static List<FileChunkDto> splitFile(File file) {
-        log.info("开始分片文件: {}, 文件大小: {} bytes, 分片大小: {} bytes", file.getName(), file.length(),
-                 CONTENT_LENGTH);
+    private static List<FileChunkDto> splitFile(FileInfoVo infoVo) {
+        log.info(
+                "开始分片文件: {}, 文件大小: {} bytes, 分片大小: {} bytes",
+                infoVo.getFileName(),
+                infoVo.getFileSize(),
+                CONTENT_LENGTH
+        );
 
         List<FileChunkDto> chunks = new ArrayList<>();
 
-        try (FileInputStream fis = new FileInputStream(file)) {
+        try {
             // 文件总大小
-            long fileSize = file.length();
+            long fileSize = infoVo.getFileSize();
             // 当前处理位置
             long position = 0;
             // 分片序号，从1开始
             int chunkNumber = 1;
 
+            // 读取所有字节
+            byte[] fileBytes = IOUtils.toByteArray(infoVo.getInputStream());
+
             while (position < fileSize) {
-                // 计算当前分片大小，最后一片可能小于chunkSize
+                // 计算当前分片大小
                 int currentChunkSize = (int) Math.min(CONTENT_LENGTH, fileSize - position);
                 byte[] chunk = new byte[currentChunkSize];
 
-                // 读取分片数据到字节数组
-                int bytesRead = fis.read(chunk);
-                if (bytesRead != -1) {
-                    // 创建分片对象
-                    FileChunkDto fileChunk = FileChunkDto.builder()
-                            .chunkNumber(chunkNumber)
-                            .startPosition(position)
-                            .size(bytesRead)
-                            .data(chunk)
-                            .build();
+                // 复制对应部分的数据
+                System.arraycopy(fileBytes, (int) position, chunk, 0, currentChunkSize);
 
-                    chunks.add(fileChunk);
-                    position += bytesRead;
-                    chunkNumber++;
-                }
+                // 创建分片对象
+                FileChunkDto fileChunk = FileChunkDto.builder()
+                        .chunkNumber(chunkNumber)
+                        .startPosition(position)
+                        .size(currentChunkSize)
+                        .data(chunk)
+                        .build();
+
+                chunks.add(fileChunk);
+                position += currentChunkSize;
+                chunkNumber++;
             }
 
-            log.info("文件分片完成 - 文件: {}, 总分片数: {}", file.getName(), chunks.size());
+            log.info("文件分片完成 - 文件: {}, 总分片数: {}", infoVo.getFileName(), chunks.size());
             return chunks;
         } catch (IOException e) {
-            log.error("文件分片失败 - 文件: {}, 错误: {}", file.getName(), e.getMessage(), e);
+            log.error("文件分片失败 - 文件: {}, 错误: {}", infoVo.getFileName(), e.getMessage(), e);
             throw EasyacgException.build("文件分片失败", e);
         }
     }

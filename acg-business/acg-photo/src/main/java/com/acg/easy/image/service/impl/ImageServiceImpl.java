@@ -10,6 +10,7 @@ import com.acg.easy.image.mapper.ImageMapper;
 import com.acg.easy.image.service.ImageService;
 import com.acg.easy.storage.StorageFactory;
 import com.acg.easy.storage.StorageModeEnum;
+import com.acg.easy.storage.entity.output.FileInfoVo;
 import com.acg.easy.storage.service.StorageService;
 import jakarta.annotation.Resource;
 import lombok.Data;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author brahma
@@ -47,15 +46,14 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<ImageVo> readImage() {
-        StorageService<Object> service = StorageFactory.getService(storageMode);
-        List<Object> files = service.listObjects();
-
-        // files = filterImageFiles(files);
-        if (CollectionUtil.isEmpty(files)) {
+        StorageService service = StorageFactory.getService(storageMode);
+        List<FileInfoVo> infoVos = service.listObjects();
+        infoVos = filterImageFiles(infoVos);
+        if (CollectionUtil.isEmpty(infoVos)) {
             return null;
         }
 
-        return files.stream().map(ImageVo::transfer).toList();
+        return infoVos.stream().map(ImageVo::transfer).toList();
     }
 
     @Override
@@ -74,7 +72,7 @@ public class ImageServiceImpl implements ImageService {
         if (!ImageFormatEnum.isImage(fileExtension)) {
             throw EasyacgException.build("不支持的文件类型");
         }
-        
+
         try {
             // 4. 生成新的文件名（避免文件名冲突）
             String newFileName = generateUniqueFileName(originalFilename);
@@ -89,7 +87,7 @@ public class ImageServiceImpl implements ImageService {
             Path targetLocation = uploadPath.resolve(newFileName);
 
             // 8. 保存文件
-            StorageService<Object> service = StorageFactory.getService(input.getMode());
+            StorageService service = StorageFactory.getService(input.getMode());
             service.putObject(file.getInputStream(), targetLocation);
         } catch (IOException e) {
             throw EasyacgException.build("UploadImage failed!!!", e);
@@ -124,13 +122,13 @@ public class ImageServiceImpl implements ImageService {
     /**
      * 过滤出图片文件
      *
-     * @param files 文件列表
+     * @param infoVos 文件列表
      * @return 图片文件列表
      */
-    private List<File> filterImageFiles(List<File> files) {
-        if (files == null || files.isEmpty()) {
+    private List<FileInfoVo> filterImageFiles(List<FileInfoVo> infoVos) {
+        if (infoVos == null || infoVos.isEmpty()) {
             return new ArrayList<>();
         }
-        return files.stream().filter(file -> ImageFormatEnum.isImage(file.getName())).collect(Collectors.toList());
+        return infoVos.stream().filter(info -> ImageFormatEnum.isImage(info.getFileType())).toList();
     }
 }

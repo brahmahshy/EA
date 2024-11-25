@@ -1,10 +1,17 @@
 package com.acg.easy.storage.service.impl;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
+import cn.hutool.core.io.FileUtil;
 import com.acg.easy.core.entity.EasyacgException;
 import com.acg.easy.storage.StorageModeEnum;
+import com.acg.easy.storage.entity.output.FileInfoVo;
 import com.acg.easy.storage.properties.SmbProperties;
 import com.acg.easy.storage.service.StorageService;
+import com.hierynomus.msdtyp.AccessMask;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
+import com.hierynomus.msfscc.fileinformation.FileStandardInformation;
+import com.hierynomus.mssmb2.SMB2CreateDisposition;
+import com.hierynomus.mssmb2.SMB2ShareAccess;
 import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
@@ -14,11 +21,11 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -28,7 +35,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class SmbStorageServiceImpl implements StorageService<File> {
+public class SmbStorageServiceImpl implements StorageService {
     @Resource
     private SmbProperties smbProperties;
 
@@ -38,53 +45,94 @@ public class SmbStorageServiceImpl implements StorageService<File> {
     }
 
     @Override
-    public List<File> listObjects() {
-        List<File> fileList;
+    public List<FileInfoVo> listObjects() {
+        List<FileInfoVo> fileInfos;
 
         try (SMBClient client = new SMBClient()) {
             log.info("正在创建SMB连接...");
             Connection connection = client.connect(smbProperties.getHost());
             log.info("已连接到服务器: {}", smbProperties.getHost());
 
-            AuthenticationContext authContext =
-                    new AuthenticationContext(smbProperties.getUsername(), smbProperties.getPassword().toCharArray(),
-                                              null);
+            AuthenticationContext authContext = new AuthenticationContext(
+                    smbProperties.getUsername(),
+                                                                          smbProperties.getPassword().toCharArray(),
+                                                                          null
+            );
             Session session = connection.authenticate(authContext);
             log.info("认证成功");
 
             log.info("正在连接共享文件夹: {}", smbProperties.getShareName());
             try (DiskShare share = (DiskShare) session.connectShare(smbProperties.getShareName())) {
-                log.info("已连接到共享文件夹，开始访问文件路径：{}", smbProperties.getBasePath());
-                fileList = listSmbFiles(share, smbProperties.getBasePath());
+                String basePath = smbProperties.getBasePath();
+                log.info("已连接到共享文件夹，开始访问文件路径：{}", basePath);
+
+                fileInfos = listFiles(share, basePath);
             }
         } catch (IOException e) {
             log.error("SMB连接失败", e);
             throw EasyacgException.build("SMB连接失败: " + e.getMessage());
         }
 
-        return fileList;
+        log.info("成功获取{}个文件信息", fileInfos.size());
+        return fileInfos;
     }
 
-    private List<File> listSmbFiles(DiskShare share, String path) {
-        List<File> fileList = new ArrayList<>();
+    private List<FileInfoVo> listFiles(DiskShare share, String basePath) {
+        List<FileInfoVo> fileInfos = new ArrayList<>();
 
-        for (FileIdBothDirectoryInformation file : share.list(path)) {
-            String fileName = file.getFileName();
+        for (FileIdBothDirectoryInformation fileInfo : share.list(basePath)) {
+            String fileName = fileInfo.getFileName();
             // 跳过 . 和 .. 目录
             if (".".equals(fileName) || "..".equals(fileName)) {
                 continue;
             }
 
-            String fullPath = path + "\\" + fileName;
-            if (share.getFileInformation(fullPath).getStandardInformation().isDirectory()) {
-                fileList.addAll(listSmbFiles(share, fullPath));
-            } else {
-                File localFile = new File(fileName);
-                fileList.add(localFile);
+            FileInfoVo info = getFileInfo(share, basePath, fileInfo);
+            if (info != null) {
+                fileInfos.add(info);
+                log.debug("成功获取文件信息: {}", fileName);
             }
         }
 
-        return fileList;
+        return fileInfos;
+    }
+
+    private FileInfoVo getFileInfo(DiskShare share, String basePath, FileIdBothDirectoryInformation fileInfo) {
+        String fileName = fileInfo.getFileName();
+        String remotePath = basePath + "\\" + fileName;
+
+        try {
+            // 获取文件信息
+            FileStandardInformation standardInfo = share.getFileInformation(remotePath).getStandardInformation();
+
+            // 如果是目录则跳过
+            if (standardInfo.isDirectory()) {
+                return null;
+            }
+
+            // 获取文件流
+            InputStream inputStream = share.openFile(
+                    remotePath,
+                    EnumSet.of(AccessMask.GENERIC_READ),
+                    null,
+                    SMB2ShareAccess.ALL,
+                    SMB2CreateDisposition.FILE_OPEN,
+                    null
+            ).getInputStream();
+
+            // 使用builder模式构建FileInfoVo对象
+            return FileInfoVo.builder()
+                    .fileName(fileName)
+                    .filePath(remotePath)
+                    .fileSize(standardInfo.getEndOfFile())
+                    .inputStream(inputStream)
+                    .lastModified(LocalDateTimeUtil.of(fileInfo.getLastWriteTime().toInstant()))
+                    .fileType(FileUtil.extName(fileName))
+                    .build();
+        } catch (Exception e) {
+            log.error("获取文件信息失败: {}", fileName, e);
+            return null;
+        }
     }
 
     @Override

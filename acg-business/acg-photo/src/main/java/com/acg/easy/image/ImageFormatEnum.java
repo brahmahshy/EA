@@ -49,22 +49,4 @@ public enum ImageFormatEnum {
         return Arrays.stream(ImageFormatEnum.values())
                 .anyMatch(format -> lowerFileName.endsWith(format.getExtension()));
     }
-
-    /**
-     * 获取文件扩展名（不含点号）
-     *
-     * @param fileName 文件名
-     * @return 扩展名
-     */
-    public static String getExtension(String fileName) {
-        if (fileName == null || fileName.isEmpty()) {
-            return "";
-        }
-        String lowerFileName = fileName.toLowerCase();
-        return Arrays.stream(ImageFormatEnum.values())
-                .filter(format -> lowerFileName.endsWith(format.getExtension()))
-                .findFirst()
-                .map(format -> format.getExtension().substring(1))
-                .orElse("");
-    }
 } 
