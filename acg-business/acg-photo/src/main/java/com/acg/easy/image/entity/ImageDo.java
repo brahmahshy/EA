@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "image", schema = "brahma")
+@TableName(value = "x_image", schema = "easyacg")
 public class ImageDo extends TableBaseDo {
     /**
      * 照片名称
