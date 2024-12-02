@@ -43,7 +43,7 @@ public class ImageController {
      */
     @PostMapping(value = "/upload")
     @Operation(description = "将本地图像上传到其他地方")
-    public ResponseVo<Void> uploadImage(@RequestPart("file") MultipartFile file, @RequestBody UploadInput input) {
+    public ResponseVo<Void> uploadImage(@RequestPart MultipartFile file, @RequestPart UploadInput input) {
         log.info("开始处理文件迁移请求 - 文件名: {}, 大小: {} bytes", file.getOriginalFilename(), file.getSize());
         imageService.uploadImage(file, input);
         return ResponseVo.success();
