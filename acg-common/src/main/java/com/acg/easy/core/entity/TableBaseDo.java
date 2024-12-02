@@ -1,6 +1,6 @@
 package com.acg.easy.core.entity;
 
-import com.acg.easy.core.util.SnowIdWorker;
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -54,6 +54,6 @@ public class TableBaseDo {
     private Integer updateCount;
 
     public TableBaseDo() {
-        this.id = SnowIdWorker.getInstance().nextId();
+        this.id = IdUtil.getSnowflakeNextId();
     }
 }
