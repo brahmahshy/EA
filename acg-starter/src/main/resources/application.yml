@@ -3,13 +3,7 @@ server:
 
 spring:
   profiles:
-    active: dev
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/brahma
-    url: jdbc:mysql://120.25.3.63:3306/brahma
-    username: root
-    password: xxf2023
+    active: pro
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
