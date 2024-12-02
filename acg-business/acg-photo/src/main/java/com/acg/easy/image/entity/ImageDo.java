@@ -8,7 +8,9 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * @author barhma
+ * 图像表
+ *
+ * @author admin
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

@@ -14,6 +14,8 @@ import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
 
 /**
  * 基础Do类，供所有Do类继承字段
+ *
+ * @author admin
  */
 @Data
 public class TableBaseDo {
