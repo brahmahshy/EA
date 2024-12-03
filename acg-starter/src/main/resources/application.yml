@@ -7,7 +7,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.brahma.entity.mybatis
+  type-aliases-package: com.easyacg.entity.mybatis
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
@@ -16,4 +16,4 @@ mybatis-plus:
 
 logging:
   level:
-    com.brahma: debug
+    com.easyacg: debug
