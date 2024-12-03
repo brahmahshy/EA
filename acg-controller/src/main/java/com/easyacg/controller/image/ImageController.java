@@ -4,7 +4,7 @@ import com.easyacg.core.entity.ResponseVo;
 import com.easyacg.image.entity.input.MigrateInput;
 import com.easyacg.image.entity.input.UploadInput;
 import com.easyacg.image.entity.output.ImageVo;
-import com.easyacg.image.service.ImageService;
+import com.easyacg.image.service.ImageBusinessService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/image")
 public class ImageController {
     @Resource
-    private ImageService imageService;
+    private ImageBusinessService imageBusinessService;
 
     /**
      * 读取照片
@@ -31,9 +31,9 @@ public class ImageController {
      * @return 是否成功
      */
     @GetMapping("/read")
-    @Operation(description = "根据配置读取照片到服务器")
-    public ResponseVo<List<ImageVo>> readImage() {
-        return ResponseVo.success(imageService.readImage());
+    @Operation(description = "根据存储策略名称，读取下面所有的图片")
+    public ResponseVo<List<ImageVo>> readImage(@RequestParam String storageName) {
+        return ResponseVo.success(imageBusinessService.getImageByStorageName(storageName));
     }
 
     /**
@@ -45,7 +45,7 @@ public class ImageController {
     @Operation(description = "将本地图像上传到其他地方")
     public ResponseVo<Void> uploadImage(@RequestPart MultipartFile file, @RequestPart UploadInput input) {
         log.info("开始处理文件迁移请求 - 文件名: {}, 大小: {} bytes", file.getOriginalFilename(), file.getSize());
-        imageService.uploadImage(file, input);
+        imageBusinessService.uploadImage(file, input);
         return ResponseVo.success();
     }
 
@@ -57,7 +57,7 @@ public class ImageController {
     @PostMapping(value = "/migrate")
     @Operation(description = "将图片从A迁移到B")
     public ResponseVo<Void> migrateImages(@RequestBody MigrateInput input) {
-        imageService.migrateImages(input);
+        imageBusinessService.migrateImages(input);
         return ResponseVo.success();
     }
 }
