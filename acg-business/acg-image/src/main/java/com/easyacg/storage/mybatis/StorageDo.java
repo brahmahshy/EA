@@ -1,8 +1,8 @@
-package com.easyacg.storage.entity;
+package com.easyacg.storage.mybatis;
 
-import com.easyacg.core.entity.TableBaseDo;
-import com.easyacg.storage.StorageModeEnum;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyacg.core.mybatis.TableBaseDo;
+import com.easyacg.storage.mybatis.enums.StorageModeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,10 +1,10 @@
 package com.easyacg.storage.service.impl;
 
 import com.easyacg.storage.S3Util;
-import com.easyacg.storage.StorageModeEnum;
+import com.easyacg.storage.mybatis.enums.StorageModeEnum;
 import com.easyacg.storage.properties.R2Properties;
 import com.easyacg.storage.properties.S3Properties;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.service.StorageBusinessService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.net.URI;
  */
 @Slf4j
 @Service
-public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements StorageService {
+public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements StorageBusinessService {
     @Resource
     private R2Properties r2Properties;
 

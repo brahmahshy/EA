@@ -1,7 +1,7 @@
 package com.easyacg.storage.service;
 
-import com.easyacg.storage.StorageModeEnum;
 import com.easyacg.storage.entity.output.FileInfoVo;
+import com.easyacg.storage.mybatis.enums.StorageModeEnum;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,11 +9,11 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * 存储策略服务
+ * 存储策略服务 —— 业务处理接口
  *
  * @author brahma
  */
-public interface StorageService {
+public interface StorageBusinessService {
     /**
      * 获取实现类对应存储类型
      *

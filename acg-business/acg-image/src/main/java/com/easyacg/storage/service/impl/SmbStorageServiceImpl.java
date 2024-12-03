@@ -3,10 +3,10 @@ package com.easyacg.storage.service.impl;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
-import com.easyacg.storage.StorageModeEnum;
 import com.easyacg.storage.entity.output.FileInfoVo;
+import com.easyacg.storage.mybatis.enums.StorageModeEnum;
 import com.easyacg.storage.properties.SmbProperties;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.service.StorageBusinessService;
 import com.hierynomus.msdtyp.AccessMask;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.msfscc.fileinformation.FileStandardInformation;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class SmbStorageServiceImpl implements StorageService {
+public class SmbStorageServiceImpl implements StorageBusinessService {
     @Resource
     private SmbProperties smbProperties;
 
