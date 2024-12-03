@@ -1,6 +1,8 @@
-package com.easyacg.core.config;
+package com.easyacg.core.mybatis;
 
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +15,16 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MyBatisPlusConfig {
+    /**
+     * 修改 IdType: ASSIGN_ID 的主键生成策略
+     *
+     * @return IdentifierGenerator
+     */
+    @Bean
+    public IdentifierGenerator idGenerator() {
+        return entity -> IdUtil.getSnowflakeNextId();
+    }
+
     /**
      * 配置分页插件
      *

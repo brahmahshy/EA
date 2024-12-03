@@ -1,6 +1,5 @@
-package com.easyacg.core.entity;
+package com.easyacg.core.mybatis;
 
-import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
@@ -19,7 +18,7 @@ public class TableBaseDo {
     /**
      * 主键id
      */
-    @TableId(type = IdType.INPUT)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -53,10 +52,5 @@ public class TableBaseDo {
     private Integer updateCount;
 
     @TableLogic
-    @TableField(fill = INSERT)
     private Integer isDeleted;
-
-    public TableBaseDo() {
-        this.id = IdUtil.getSnowflakeNextId();
-    }
 }
