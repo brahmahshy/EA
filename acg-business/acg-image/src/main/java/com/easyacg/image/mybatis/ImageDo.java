@@ -1,7 +1,7 @@
-package com.easyacg.image.entity;
+package com.easyacg.image.mybatis;
 
-import com.easyacg.core.entity.TableBaseDo;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyacg.core.mybatis.TableBaseDo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -55,4 +55,9 @@ public class ImageDo extends TableBaseDo {
      * 拍摄地点
      */
     private String location;
+
+    /**
+     * 存放在哪个存储策略中
+     */
+    private Long storageId;
 }

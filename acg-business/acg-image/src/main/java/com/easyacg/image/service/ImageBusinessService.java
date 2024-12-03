@@ -8,15 +8,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @author braham
+ * 业务操作实现类
+ *
+ * @author Administrator
  */
-public interface ImageService {
+public interface ImageBusinessService {
     /**
      * 根据配置项，读取现有的所有照片
      *
      * @return 照片信息
      */
-    List<ImageVo> readImage();
+    List<ImageVo> getImageByStorageName(String storageName);
 
     /**
      * 上传图像

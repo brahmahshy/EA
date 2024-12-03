@@ -1,7 +1,7 @@
-package com.easyacg.image.mapper;
+package com.easyacg.image.mybatis.mapper;
 
-import com.easyacg.image.entity.ImageDo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyacg.image.mybatis.ImageDo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,23 +1,23 @@
 package com.easyacg.image.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.image.ImageFormatEnum;
 import com.easyacg.image.entity.input.MigrateInput;
 import com.easyacg.image.entity.input.UploadInput;
 import com.easyacg.image.entity.output.ImageVo;
-import com.easyacg.image.mapper.ImageMapper;
+import com.easyacg.image.mybatis.ImageDo;
+import com.easyacg.image.service.ImageBusinessService;
 import com.easyacg.image.service.ImageService;
 import com.easyacg.storage.StorageFactory;
-import com.easyacg.storage.StorageModeEnum;
 import com.easyacg.storage.entity.output.FileInfoVo;
+import com.easyacg.storage.mybatis.StorageDo;
+import com.easyacg.storage.service.StorageBusinessService;
 import com.easyacg.storage.service.StorageService;
 import jakarta.annotation.Resource;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -25,35 +25,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author brahma
  */
-@Data
 @Slf4j
 @Service
-public class ImageServiceImpl implements ImageService {
-    @Value("${easyacg.storage.mode:LOCAL}")
-    private StorageModeEnum storageMode;
+public class ImageBusinessServiceImpl implements ImageBusinessService {
+    @Resource
+    private ImageService imageService;
 
     @Resource
-    private ImageMapper imageMapper;
+    private StorageService storageService;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<ImageVo> readImage() {
-        StorageService service = StorageFactory.getService(storageMode);
-        List<FileInfoVo> infoVos = service.listObjects();
-        infoVos = filterImageFiles(infoVos);
-        if (CollectionUtil.isEmpty(infoVos)) {
-            return null;
-        }
+    public List<ImageVo> getImageByStorageName(String storageName) {
+        LambdaQueryWrapper<StorageDo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StorageDo::getName, storageName);
+        StorageDo storageDo = storageService.getOne(wrapper);
 
-        return infoVos.stream().map(ImageVo::transfer).toList();
+
+        LambdaQueryWrapper<ImageDo> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(ImageDo::getStorageId, storageDo.getId());
+        List<ImageDo> imageDos = imageService.list(wrapper2);
+        if (CollectionUtil.isEmpty(imageDos)) {
+            return Collections.emptyList();
+        }
+        return imageDos.stream().map(ImageVo::transfer).toList();
     }
 
     @Override
@@ -87,7 +86,12 @@ public class ImageServiceImpl implements ImageService {
             Path targetLocation = uploadPath.resolve(newFileName);
 
             // 8. 保存文件
-            StorageService service = StorageFactory.getService(input.getMode());
+            LambdaQueryWrapper<StorageDo> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(StorageDo::getName, input.getStorageName());
+            StorageDo storageDo = storageService.getOne(wrapper);
+
+
+            StorageBusinessService service = StorageFactory.getService(storageDo.getMode());
             service.putObject(file.getInputStream(), targetLocation);
         } catch (IOException e) {
             throw EasyacgException.build("UploadImage failed!!!", e);
