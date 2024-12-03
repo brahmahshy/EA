@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.brahma</groupId>
-            <artifactId>acg-photo</artifactId>
+            <artifactId>acg-image</artifactId>
             <version>${project.version}</version>
         </dependency>
 

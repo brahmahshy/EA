@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>acg-business-core</module>
-        <module>acg-photo</module>
+        <module>acg-image</module>
         <module>acg-user</module>
         <module>acg-wechat</module>
     </modules>

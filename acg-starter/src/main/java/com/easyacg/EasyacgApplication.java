@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {
         "classpath:application.yml", "classpath:application-image.yml", "classpath:application-wx.yml"
 }, factory = EasyacgPropertySourceFactory.class)
-@ComponentScan("com.acg.easy.*")
+@ComponentScan("com.easyacg.*")
 public class EasyacgApplication {
     public static void main(String[] args) {
         SpringApplication.run(EasyacgApplication.class, args);
