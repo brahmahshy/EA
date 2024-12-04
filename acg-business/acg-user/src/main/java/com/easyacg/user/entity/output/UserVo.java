@@ -1,7 +1,7 @@
 package com.easyacg.user.entity.output;
 
 import com.easyacg.core.entity.EasyacgException;
-import com.easyacg.user.entity.UserDo;
+import com.easyacg.user.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class UserVo {
     @Schema(description = "用户邮箱")
     private String email;
 
-    public static UserVo buildByDo(UserDo userDo) {
+    public static UserVo buildByDo(User userDo) {
         if (userDo == null) {
             throw EasyacgException.build("用户不存在！！！");
         }

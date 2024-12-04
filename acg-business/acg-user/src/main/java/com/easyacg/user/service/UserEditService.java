@@ -1,8 +1,8 @@
 package com.easyacg.user.service;
 
-import com.easyacg.user.entity.UserDo;
 import com.easyacg.user.entity.input.UserBo;
 import com.easyacg.user.entity.output.UserVo;
+import com.easyacg.user.model.User;
 
 /**
  * 用户服务Service层
@@ -13,7 +13,7 @@ public interface UserEditService {
      *
      * @return 创建成功的用户基本信息
      */
-    UserDo create(UserBo params);
+    User create(UserBo params);
 
     /**
      * 更新用户

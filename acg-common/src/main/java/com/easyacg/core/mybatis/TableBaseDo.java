@@ -1,12 +1,16 @@
 package com.easyacg.core.mybatis;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
+import org.dromara.autotable.annotation.ColumnComment;
+import org.dromara.autotable.annotation.ColumnDefault;
+import org.dromara.mpe.annotation.*;
+import org.dromara.mpe.autotable.annotation.ColumnId;
 
 import java.time.LocalDateTime;
-
-import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT;
-import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
 
 /**
  * 基础Do类，供所有Do类继承字段
@@ -15,42 +19,35 @@ import static com.baomidou.mybatisplus.annotation.FieldFill.INSERT_UPDATE;
  */
 @Data
 public class TableBaseDo {
-    /**
-     * 主键id
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
+    @ColumnId(mode = IdType.ASSIGN_ID, comment = "主键id")
+    protected Long id;
 
-    /**
-     * 创建人id
-     */
-    @TableField(fill = INSERT)
-    private Long creatorId;
+    @ColumnComment("创建人id")
+    @InsertFillData(UserIdAutoFillHandler.class)
+    protected Long creatorId;
 
-    /**
-     * 創建時間
-     */
-    @TableField(fill = INSERT)
-    private LocalDateTime createTime;
+    @InsertFillTime
+    @ColumnComment("创建时间")
+    protected LocalDateTime createTime;
 
-    /**
-     * 更新人id
-     */
-    @TableField(fill = INSERT_UPDATE)
-    private Long updaterId;
+    @ColumnComment("更新人id")
+    @InsertUpdateFillData(UserIdAutoFillHandler.class)
+    protected Long updaterId;
 
     /**
      * 更新時間
      */
-    @TableField(fill = INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    @InsertUpdateFillTime
+    @ColumnComment("更新時間")
+    protected LocalDateTime updateTime;
 
-    /**
-     * 更新次數
-     */
-    @TableField(update = "%s + 1", updateStrategy = FieldStrategy.ALWAYS, fill = INSERT)
-    private Integer updateCount;
+    @DefaultValue("0")
+    @ColumnComment("更新次數")
+    @TableField(update = "%s + 1", updateStrategy = FieldStrategy.ALWAYS)
+    protected Integer updateCount;
 
     @TableLogic
-    private Integer isDeleted;
+    @ColumnDefault("0")
+    @ColumnComment("是否删除")
+    protected Integer isDeleted;
 }

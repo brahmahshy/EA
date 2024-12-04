@@ -5,9 +5,9 @@ import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.S3Util;
 import com.easyacg.storage.entity.output.FileInfoVo;
-import com.easyacg.storage.mybatis.enums.StorageModeEnum;
+import com.easyacg.storage.model.StorageModeEnum;
 import com.easyacg.storage.properties.S3Properties;
-import com.easyacg.storage.service.StorageBusinessService;
+import com.easyacg.storage.service.StorageService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class DefaultS3StorageServiceImpl implements StorageBusinessService {
+public class DefaultS3StorageServiceImpl implements StorageService {
     @Resource
     private S3Properties s3Properties;
 

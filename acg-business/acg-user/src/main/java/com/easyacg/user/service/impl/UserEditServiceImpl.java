@@ -1,9 +1,9 @@
 package com.easyacg.user.service.impl;
 
-import com.easyacg.user.entity.UserDo;
 import com.easyacg.user.entity.input.UserBo;
 import com.easyacg.user.entity.output.UserVo;
 import com.easyacg.user.mapper.UserMapper;
+import com.easyacg.user.model.User;
 import com.easyacg.user.service.UserEditService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class UserEditServiceImpl implements UserEditService {
 
     @Override
     @Transactional
-    public UserDo create(UserBo params) {
-        UserDo userDo = new UserDo();
+    public User create(UserBo params) {
+        User userDo = new User();
         userDo.setName(params.getName());
         userDo.setImageUrl(params.getImageUrl());
         userDo.setTelephone(params.getTelephone());
@@ -33,7 +33,7 @@ public class UserEditServiceImpl implements UserEditService {
     @Override
     @Transactional
     public UserVo update(UserBo bo) {
-        UserDo userDo = new UserDo();
+        User userDo = new User();
         userDo.setName(bo.getName());
         userDo.setTelephone(bo.getTelephone());
         userDo.setEmail(bo.getEmail());
@@ -43,7 +43,7 @@ public class UserEditServiceImpl implements UserEditService {
 
     @Override
     public void delete(Long userId) {
-        UserDo userDo = new UserDo();
+        User userDo = new User();
         userDo.setId(userId);
         userMapper.deleteById(userDo);
     }

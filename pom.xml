@@ -61,10 +61,11 @@
 
         <!-- Spring Boot 关联 Mybatis Plus -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
+            <groupId>org.dromara.mpe</groupId>
+            <artifactId>mybatis-plus-ext-spring-boot3-starter</artifactId>
+            <version>3.5.9-EXT803</version>
         </dependency>
+
 
         <!-- mysql驱动 -->
         <dependency>

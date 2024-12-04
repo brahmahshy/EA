@@ -1,4 +1,4 @@
-package com.easyacg.storage.mybatis.enums;
+package com.easyacg.storage.model;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;

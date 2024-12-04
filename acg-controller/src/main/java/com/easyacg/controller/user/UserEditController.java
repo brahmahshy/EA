@@ -3,9 +3,9 @@ package com.easyacg.controller.user;
 import com.easyacg.core.entity.BaseIdBo;
 import com.easyacg.core.entity.RequestBo;
 import com.easyacg.core.entity.ResponseVo;
-import com.easyacg.user.entity.UserDo;
 import com.easyacg.user.entity.input.UserBo;
 import com.easyacg.user.entity.output.UserVo;
+import com.easyacg.user.model.User;
 import com.easyacg.user.service.UserEditService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
@@ -24,7 +24,7 @@ public class UserEditController {
      * @return 用户基本信息
      */
     @PostMapping("/create")
-    public ResponseVo<UserDo> create(@RequestBody @Valid RequestBo<UserBo> bo) {
+    public ResponseVo<User> create(@RequestBody @Valid RequestBo<UserBo> bo) {
         return ResponseVo.success(userService.create(bo.getParams()));
     }
 

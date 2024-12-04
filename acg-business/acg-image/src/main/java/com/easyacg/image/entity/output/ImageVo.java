@@ -1,6 +1,6 @@
 package com.easyacg.image.entity.output;
 
-import com.easyacg.image.mybatis.ImageDo;
+import com.easyacg.image.model.Image;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,11 +15,11 @@ public class ImageVo {
     private String imgSrc;
 
 
-    public static ImageVo transfer(ImageDo imageDo) {
+    public static ImageVo transfer(Image image) {
         ImageVo imageVo = new ImageVo();
-        imageVo.setId(imageDo.getId().toString());
-        imageVo.setName(imageDo.getName());
-        imageVo.setImgSrc(imageDo.getFilePath());
+        imageVo.setId(image.getId().toString());
+        imageVo.setName(image.getName());
+        imageVo.setImgSrc(image.getFilePath());
         return imageVo;
     }
 }

@@ -4,10 +4,9 @@ import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.entity.output.FileInfoVo;
-import com.easyacg.storage.mybatis.enums.StorageModeEnum;
-import com.easyacg.storage.mybatis.mapper.StorageMapper;
+import com.easyacg.storage.model.StorageModeEnum;
 import com.easyacg.storage.properties.LocalProperties;
-import com.easyacg.storage.service.StorageBusinessService;
+import com.easyacg.storage.service.StorageService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,12 +28,9 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class LocalFileStorageServiceImpl implements StorageBusinessService {
+public class LocalFileStorageServiceImpl implements StorageService {
     @Resource
     private LocalProperties localProperties;
-
-    @Resource
-    private StorageMapper storageMapper;
 
     @Override
     public StorageModeEnum getStorage() {
