@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ApiAspect {
-    @Around("execution(* com.acg.easy.controller..*(..))")
+    @Around("execution(* com.easyacg.controller..*(..))")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpServletRequest request = RequestHolder.getRequest();
         log.info(

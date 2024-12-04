@@ -25,7 +25,7 @@ public class S3UtilAspect {
     /**
      * 定义切点 - 拦截S3Util的所有公共方法
      */
-    @Pointcut("execution(public * com.acg.easy.storage.S3Util.*(..))")
+    @Pointcut("execution(public * com.easyacg.storage.S3Util.*(..))")
     public void s3Operations() {
     }
 
