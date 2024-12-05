@@ -14,7 +14,10 @@ spring:
 
 auto-table:
   enable: true
+  mode: create
+  auto-drop-column: true
+  auto-drop-index: true
   recordSql:
     enable: true
     recordType: custom
-    folderPath: sql
+    version: ${easyacg.version}

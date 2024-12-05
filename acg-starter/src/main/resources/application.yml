@@ -1,3 +1,6 @@
+easyacg:
+  version: 1.0.0
+
 server:
   port: 8083
 
@@ -10,7 +13,7 @@ mybatis-plus:
   type-aliases-package: com.easyacg.*.mybatis
   type-enums-package: com.easyacg.*.mybatis.enums
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
   global-config:
     db-config:
