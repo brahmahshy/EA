@@ -10,7 +10,7 @@
         <version>3.2.4</version>
     </parent>
 
-    <groupId>com.brahma</groupId>
+    <groupId>com.easyacg</groupId>
     <artifactId>EasyAcg</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
