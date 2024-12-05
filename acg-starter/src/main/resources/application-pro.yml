@@ -1,6 +1,3 @@
-easyacg:
-  version: 1.0.0
-
 auto-table:
   enable: false
 
