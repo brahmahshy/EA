@@ -1,0 +1,14 @@
+easyacg:
+  version: 1.0.0
+
+auto-table:
+  enable: false
+
+spring:
+  sql:
+    init:
+      mode: always
+    schema:
+      - classpath:sql/schema-${easyacg.version}.sql
+    data:
+      - classpath:sql/data.sql
