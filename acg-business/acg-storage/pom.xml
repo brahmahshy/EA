@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -9,12 +9,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acg-business-core</artifactId>
+    <artifactId>acg-storage</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <amazon.version>2.29.19</amazon.version>
     </properties>
 
     <dependencies>
@@ -24,22 +25,18 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- 用于集成SMB连接 -->
         <dependency>
-            <groupId>com.easyacg</groupId>
-            <artifactId>acg-storage</artifactId>
-            <version>${project.version}</version>
+            <groupId>com.hierynomus</groupId>
+            <artifactId>smbj</artifactId>
+            <version>0.13.0</version>
         </dependency>
 
+        <!-- 集成S3连接 -->
         <dependency>
-            <groupId>com.easyacg</groupId>
-            <artifactId>acg-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.easyacg</groupId>
-            <artifactId>acg-wechat</artifactId>
-            <version>${project.version}</version>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>${amazon.version}</version>
         </dependency>
     </dependencies>
 </project>

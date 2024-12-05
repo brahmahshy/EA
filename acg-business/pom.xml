@@ -14,6 +14,7 @@
     <modules>
         <module>acg-business-core</module>
         <module>acg-image</module>
+        <module>acg-storage</module>
         <module>acg-user</module>
         <module>acg-wechat</module>
     </modules>

@@ -15,7 +15,6 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <amazon.version>2.29.19</amazon.version>
     </properties>
 
     <dependencies>
@@ -26,33 +25,11 @@
             <version>2.19.0</version>
         </dependency>
 
-
         <!-- 用于压缩图片为webp格式，供网页端展示 -->
         <dependency>
             <groupId>org.sejda.imageio</groupId>
             <artifactId>webp-imageio</artifactId>
             <version>0.1.6</version>
-        </dependency>
-
-        <!-- 用于集成SMB连接 -->
-        <dependency>
-            <groupId>com.hierynomus</groupId>
-            <artifactId>smbj</artifactId>
-            <version>0.13.0</version>
-        </dependency>
-
-        <!-- 集成S3连接 -->
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>s3</artifactId>
-            <version>${amazon.version}</version>
-        </dependency>
-
-        <!-- io操作工具 -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
         </dependency>
     </dependencies>
 </project>
