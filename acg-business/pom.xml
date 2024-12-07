@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.easyacg</groupId>
-        <artifactId>EasyAcg</artifactId>
+        <artifactId>EA</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -13,8 +13,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>acg-business-core</module>
-        <module>acg-image</module>
-        <module>acg-storage</module>
+        <module>acg-image-api</module>
+        <module>acg-image-impl</module>
+        <module>acg-storage-api</module>
+        <module>acg-storage-impl</module>
         <module>acg-user</module>
         <module>acg-wechat</module>
     </modules>

@@ -20,13 +20,25 @@
     <dependencies>
         <dependency>
             <groupId>com.easyacg</groupId>
-            <artifactId>acg-image</artifactId>
+            <artifactId>acg-image-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.easyacg</groupId>
-            <artifactId>acg-storage</artifactId>
+            <artifactId>acg-image-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.easyacg</groupId>
+            <artifactId>acg-storage-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.easyacg</groupId>
+            <artifactId>acg-storage-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
 

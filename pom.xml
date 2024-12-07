@@ -7,11 +7,11 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.4</version>
+        <version>3.4.0</version>
     </parent>
 
     <groupId>com.easyacg</groupId>
-    <artifactId>EasyAcg</artifactId>
+    <artifactId>EA</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
@@ -27,7 +27,7 @@
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
 
         <hutool.version>5.8.26</hutool.version>
-        <mybatis.plus.version>3.5.5</mybatis.plus.version>
+        <mybatis.plus.ext.version>3.5.9-EXT803</mybatis.plus.ext.version>
     </properties>
 
     <!--依赖版本管理，管理子类的版本，可以在此排除jar中的依赖(在此处只是申明，没有引入)-->
@@ -69,9 +69,8 @@
         <dependency>
             <groupId>org.dromara.mpe</groupId>
             <artifactId>mybatis-plus-ext-spring-boot3-starter</artifactId>
-            <version>3.5.9-EXT803</version>
+            <version>${mybatis.plus.ext.version}</version>
         </dependency>
-
 
         <!-- mysql驱动 -->
         <dependency>
