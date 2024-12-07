@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <swagger.version>2.2.21</swagger.version>
+        <fastjson2.version>2.0.53</fastjson2.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,12 @@
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-core</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2-extension-spring6</artifactId>
+            <version>${fastjson2.version}</version>
         </dependency>
     </dependencies>
 </project>
