@@ -1,6 +1,7 @@
 package com.easyacg.storage.model;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.easyacg.storage.properties.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,13 +14,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum StorageModeEnum {
-    LOCAL(0, "本地存储"),
+    LOCAL(0, "本地存储", LocalProperties.class),
 
-    SMB(1, "SMB存储"),
+    SMB(1, "SMB存储", SmbProperties.class),
 
-    S3(10, "S3存储"),
+    S3(10, "S3存储", S3Properties.class),
 
-    R2(11, "R2存储");
+    R2(11, "R2存储", R2Properties.class);
 
     /**
      * 存储策略模式
@@ -31,4 +32,6 @@ public enum StorageModeEnum {
      * 描述
      */
     private final String description;
+
+    private final Class<? extends StorageProperties> propertiesClazz;
 }

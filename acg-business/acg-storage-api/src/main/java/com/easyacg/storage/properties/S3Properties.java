@@ -1,8 +1,6 @@
 package com.easyacg.storage.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * S3存储策略配置
@@ -10,9 +8,7 @@ import org.springframework.stereotype.Component;
  * @author brahma
  */
 @Data
-@Component
-@ConfigurationProperties(prefix = "easyacg.storage.s3")
-public class S3Properties {
+public class S3Properties implements StorageProperties {
     private String endpoint;
 
     private String accessKey;

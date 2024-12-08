@@ -1,8 +1,6 @@
 package com.easyacg.storage.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * SMB存储策略配置项
@@ -10,9 +8,7 @@ import org.springframework.stereotype.Component;
  * @author brahma
  */
 @Data
-@Component
-@ConfigurationProperties(prefix = "easyacg.storage.smb")
-public class SmbProperties {
+public class SmbProperties implements StorageProperties {
     private String host;
     private String shareName;
     private String username;

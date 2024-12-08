@@ -1,8 +1,6 @@
 package com.easyacg.storage.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * 本地存储策略配置项
@@ -10,8 +8,6 @@ import org.springframework.stereotype.Component;
  * @author brahma
  */
 @Data
-@Component
-@ConfigurationProperties(prefix = "easyacg.storage.local")
-public class LocalProperties {
+public class LocalProperties implements StorageProperties {
     private String path;
 }

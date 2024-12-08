@@ -4,6 +4,7 @@ import com.easyacg.core.mybatis.TableBaseDo;
 import com.easyacg.image.model.Image;
 import com.easyacg.image.model.define.ImageDefine;
 import com.easyacg.storage.model.define.StorageDefine;
+import com.easyacg.storage.properties.StorageProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.dromara.autotable.annotation.ColumnComment;
@@ -32,7 +33,8 @@ public class Storage extends TableBaseDo {
     private StorageModeEnum mode;
 
     @ColumnComment("存储策略配置")
-    private String disposition;
+    @Column(comment = "存储策略配置", type = "json")
+    private StorageProperties properties;
 
     @ColumnComment("备注")
     private String remark;

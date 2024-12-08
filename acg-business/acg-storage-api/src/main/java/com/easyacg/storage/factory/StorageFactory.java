@@ -1,4 +1,4 @@
-package com.easyacg.storage;
+package com.easyacg.storage.factory;
 
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.model.StorageModeEnum;
