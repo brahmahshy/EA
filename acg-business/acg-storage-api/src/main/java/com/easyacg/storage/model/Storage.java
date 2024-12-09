@@ -1,5 +1,7 @@
 package com.easyacg.storage.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import com.easyacg.core.mybatis.TableBaseDo;
 import com.easyacg.image.model.Image;
 import com.easyacg.image.model.define.ImageDefine;
@@ -34,6 +36,7 @@ public class Storage extends TableBaseDo {
 
     @ColumnComment("存储策略配置")
     @Column(comment = "存储策略配置", type = "json")
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
     private StorageProperties properties;
 
     @ColumnComment("备注")

@@ -20,8 +20,12 @@ import java.util.stream.Collectors;
 public class StorageFactory {
     private static Map<StorageModeEnum, StorageService> storageEnumServiceMap;
 
-    @Resource
     private List<StorageService> storageServiceList;
+
+    @Resource
+    public void setStorageServiceList(List<StorageService> storageServiceList) {
+        this.storageServiceList = storageServiceList;
+    }
 
     public static StorageService getService(StorageModeEnum storageModeEnum) {
         StorageService storageService = storageEnumServiceMap.get(storageModeEnum);
