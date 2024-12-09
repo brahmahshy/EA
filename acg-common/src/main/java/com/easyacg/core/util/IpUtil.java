@@ -7,7 +7,6 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
-import java.util.List;
 
 @Slf4j
 @UtilityClass
@@ -72,8 +71,7 @@ public class IpUtil {
      * @return 是否本地调用
      */
     public boolean isLocalhost(String ip) {
-        List<String> localhostList = List.of("127.0.0.1", "0:0:0:0:0:0:0:1");
-        return localhostList.contains(ip);
+        return "127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip);
     }
 
     /**
