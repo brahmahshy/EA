@@ -3,7 +3,7 @@ package com.easyacg.storage.aspect;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.EasyacgS3Client;
 import com.easyacg.storage.S3Util;
-import com.easyacg.storage.properties.S3Properties;
+import com.easyacg.storage.entity.properties.S3Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;

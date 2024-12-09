@@ -1,6 +1,6 @@
 package com.easyacg.storage;
 
-import com.easyacg.storage.properties.S3Properties;
+import com.easyacg.storage.entity.properties.S3Properties;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;

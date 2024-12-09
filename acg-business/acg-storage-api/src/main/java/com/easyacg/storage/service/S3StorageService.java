@@ -1,6 +1,6 @@
 package com.easyacg.storage.service;
 
-import com.easyacg.storage.properties.S3Properties;
+import com.easyacg.storage.entity.properties.S3Properties;
 
 /**
  * 用于标识S3存储的接口

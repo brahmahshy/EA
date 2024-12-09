@@ -1,6 +1,7 @@
-package com.easyacg.storage.properties;
+package com.easyacg.storage.entity.properties;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * S3存储策略配置
@@ -8,7 +9,8 @@ import lombok.Data;
  * @author brahma
  */
 @Data
-public class S3Properties implements StorageProperties {
+@EqualsAndHashCode(callSuper = true)
+public class S3Properties extends StorageProperties {
     private String endpoint;
 
     private String accessKey;

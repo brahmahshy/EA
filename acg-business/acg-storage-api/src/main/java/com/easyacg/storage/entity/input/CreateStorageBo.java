@@ -1,8 +1,9 @@
 package com.easyacg.storage.entity.input;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.easyacg.storage.entity.properties.StorageProperties;
+import com.easyacg.storage.entity.properties.StoragePropertiesDeserializer;
 import com.easyacg.storage.model.Storage;
-import com.easyacg.storage.model.StorageModeEnum;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -18,18 +19,16 @@ public class CreateStorageBo {
     private String name;
 
     @NotNull
-    private StorageModeEnum mode;
-
-    @NotNull
-    private JSONObject properties;
+    @JsonDeserialize(using = StoragePropertiesDeserializer.class)
+    private StorageProperties properties;
 
     private String remark;
 
     public Storage trans() {
         Storage storage = new Storage();
         storage.setName(this.getName());
-        storage.setMode(this.mode);
-        storage.setProperties(properties.to(mode.getPropertiesClazz()));
+        storage.setMode(properties.getType());
+        storage.setProperties(properties);
         storage.setRemark(this.getRemark());
         return storage;
     }

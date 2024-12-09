@@ -1,8 +1,8 @@
 package com.easyacg.storage.service.impl;
 
 import com.easyacg.storage.S3Util;
+import com.easyacg.storage.entity.properties.S3Properties;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.properties.S3Properties;
 import com.easyacg.storage.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

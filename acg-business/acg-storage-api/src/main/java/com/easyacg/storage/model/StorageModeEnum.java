@@ -1,7 +1,7 @@
 package com.easyacg.storage.model;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.easyacg.storage.properties.*;
+import com.easyacg.storage.entity.properties.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
