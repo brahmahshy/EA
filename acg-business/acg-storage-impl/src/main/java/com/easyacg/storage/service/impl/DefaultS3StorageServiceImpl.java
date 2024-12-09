@@ -8,7 +8,6 @@ import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.model.StorageModeEnum;
 import com.easyacg.storage.properties.S3Properties;
 import com.easyacg.storage.service.StorageService;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -29,8 +28,6 @@ import java.util.List;
 @Slf4j
 @Service
 public class DefaultS3StorageServiceImpl implements StorageService {
-    @Resource
-    private S3Properties s3Properties;
 
     @Override
     public StorageModeEnum getStorage() {
@@ -39,6 +36,7 @@ public class DefaultS3StorageServiceImpl implements StorageService {
 
     @Override
     public List<FileInfoVo> listObjects() {
+        S3Properties s3Properties = new S3Properties();
         String bucketName = s3Properties.getBucketName();
         try {
             // 使用项目自己的S3Util工具类获取对象列表

@@ -17,7 +17,6 @@ import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
 import com.hierynomus.smbj.session.Session;
 import com.hierynomus.smbj.share.DiskShare;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +35,6 @@ import java.util.List;
 @Slf4j
 @Service
 public class SmbStorageServiceImpl implements StorageService {
-    @Resource
-    private SmbProperties smbProperties;
 
     @Override
     public StorageModeEnum getStorage() {
@@ -46,6 +43,7 @@ public class SmbStorageServiceImpl implements StorageService {
 
     @Override
     public List<FileInfoVo> listObjects() {
+        SmbProperties smbProperties = new SmbProperties();
         List<FileInfoVo> fileInfos;
 
         try (SMBClient client = new SMBClient()) {

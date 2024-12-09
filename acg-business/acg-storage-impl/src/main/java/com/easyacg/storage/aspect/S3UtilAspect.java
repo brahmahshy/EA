@@ -3,6 +3,7 @@ package com.easyacg.storage.aspect;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.EasyacgS3Client;
 import com.easyacg.storage.S3Util;
+import com.easyacg.storage.properties.S3Properties;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -37,7 +38,7 @@ public class S3UtilAspect {
         try {
             if (S3Util.s3Client == null) {
                 log.debug("S3Client未初始化，正在进行初始化...");
-                S3Util.s3Client = EasyacgS3Client.build();
+                S3Util.s3Client = EasyacgS3Client.build(new S3Properties());
                 log.debug("S3Client初始化完成");
             }
         } catch (Exception e) {

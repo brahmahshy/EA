@@ -7,7 +7,6 @@ import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.model.StorageModeEnum;
 import com.easyacg.storage.properties.LocalProperties;
 import com.easyacg.storage.service.StorageService;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -29,9 +28,6 @@ import java.util.Objects;
 @Slf4j
 @Service
 public class LocalFileStorageServiceImpl implements StorageService {
-    @Resource
-    private LocalProperties localProperties;
-
     @Override
     public StorageModeEnum getStorage() {
         return StorageModeEnum.LOCAL;
@@ -39,6 +35,7 @@ public class LocalFileStorageServiceImpl implements StorageService {
 
     @Override
     public List<FileInfoVo> listObjects() {
+        LocalProperties localProperties = new LocalProperties();
         String basePath = localProperties.getPath();
         File baseDir = new File(basePath);
         List<File> files = getFile(baseDir);

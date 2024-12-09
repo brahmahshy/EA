@@ -1,7 +1,6 @@
 package com.easyacg.storage;
 
 import com.easyacg.storage.properties.S3Properties;
-import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -18,14 +17,8 @@ import java.net.URI;
  */
 @Component
 public class EasyacgS3Client {
-    private static S3Properties s3Properties;
 
-    @Resource
-    public void setS3Properties(S3Properties properties) {
-        s3Properties = properties;
-    }
-
-    public static S3Client build() {
+    public static S3Client build(S3Properties s3Properties) {
         AwsBasicCredentials credentials =
                 AwsBasicCredentials.create(s3Properties.getAccessKey(), s3Properties.getSecretKey());
 
