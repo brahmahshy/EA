@@ -1,4 +1,4 @@
-package com.easyacg.core;
+package com.easyacg.core.aspect;
 
 import com.easyacg.core.holder.RequestHolder;
 import com.easyacg.core.util.IpUtil;

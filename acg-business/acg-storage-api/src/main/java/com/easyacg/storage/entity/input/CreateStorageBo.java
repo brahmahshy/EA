@@ -3,6 +3,7 @@ package com.easyacg.storage.entity.input;
 import com.easyacg.storage.entity.properties.StorageProperties;
 import com.easyacg.storage.entity.properties.StoragePropertiesDeserializer;
 import com.easyacg.storage.model.Storage;
+import com.easyacg.storage.model.StorageModeEnum;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -28,10 +29,10 @@ public class CreateStorageBo {
 
     public Storage trans() {
         Storage storage = new Storage();
-        storage.setName(this.getName());
-        storage.setMode(properties.getType());
-        storage.setProperties(properties);
-        storage.setRemark(this.getRemark());
+        storage.setName(this.name);
+        storage.setMode(StorageModeEnum.valueOf(this.properties.getType()));
+        storage.setProperties(this.properties);
+        storage.setRemark(this.remark);
         return storage;
     }
 }

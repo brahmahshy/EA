@@ -24,13 +24,12 @@ import java.util.stream.Collectors;
 public class EaExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public <T> ResponseVo<T> handleValidationException(MethodArgumentNotValidException exception) {
-        log.error("参数校验失败：", exception);
         List<String> errors = exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(result -> result.getField() + result.getDefaultMessage())
                 .collect(Collectors.toList());
-        return ResponseVo.error("1.1.1", "参数校验失败", String.join(", ", errors));
+        return ResponseVo.error("1.2.0", "参数校验失败", String.join(", ", errors));
     }
 
     @ExceptionHandler(DuplicateKeyException.class)

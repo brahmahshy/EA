@@ -1,7 +1,8 @@
 package com.easyacg.storage.entity.properties;
 
+import com.easyacg.core.validate.IsEnum;
 import com.easyacg.storage.model.StorageModeEnum;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 /**
@@ -10,12 +11,13 @@ import lombok.Data;
  * @author brahma
  */
 @Data
-public abstract class StorageProperties {
+public class StorageProperties {
     /**
      * 存储策略类型
      */
-    @NotNull
-    private StorageModeEnum type;
+    @NotBlank
+    @IsEnum(enumClass = StorageModeEnum.class)
+    private String type;
 
     public void init() {}
 }
