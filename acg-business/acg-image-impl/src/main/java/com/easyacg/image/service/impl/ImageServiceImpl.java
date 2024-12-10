@@ -14,7 +14,7 @@ import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.factory.StorageFactory;
 import com.easyacg.storage.model.Storage;
 import com.easyacg.storage.repository.StorageRepository;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.service.FileService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -91,7 +91,7 @@ public class ImageServiceImpl implements ImageService {
             Storage storageDo = storageRepository.getOne(wrapper);
 
 
-            StorageService service = StorageFactory.getService(storageDo.getMode());
+            FileService service = StorageFactory.getService(storageDo.getMode());
             service.putObject(file.getInputStream(), targetLocation);
         } catch (IOException e) {
             throw EasyacgException.build("UploadImage failed!!!", e);

@@ -1,9 +1,9 @@
-package com.easyacg.storage.service.impl;
+package com.easyacg.storage.service.impl.file;
 
 import com.easyacg.storage.S3Util;
 import com.easyacg.storage.entity.properties.S3Properties;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -21,9 +21,9 @@ import java.net.URI;
  */
 @Slf4j
 @Service
-public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements StorageService {
+public class CloudflareR2StorageServiceImpl extends DefaultS3StorageServiceImpl implements FileService {
     @Override
-    public StorageModeEnum getStorage() {
+    public StorageModeEnum getType() {
         return StorageModeEnum.R2;
     }
 

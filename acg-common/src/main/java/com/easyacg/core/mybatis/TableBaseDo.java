@@ -3,10 +3,8 @@ package com.easyacg.core.mybatis;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 import org.dromara.autotable.annotation.ColumnComment;
-import org.dromara.autotable.annotation.ColumnDefault;
 import org.dromara.mpe.annotation.*;
 import org.dromara.mpe.autotable.annotation.ColumnId;
 
@@ -34,9 +32,6 @@ public class TableBaseDo {
     @InsertUpdateFillData(UserIdAutoFillHandler.class)
     protected Long updaterId;
 
-    /**
-     * 更新時間
-     */
     @InsertUpdateFillTime
     @ColumnComment("更新時間")
     protected LocalDateTime updateTime;
@@ -45,9 +40,4 @@ public class TableBaseDo {
     @ColumnComment("更新次數")
     @TableField(update = "%s + 1", updateStrategy = FieldStrategy.ALWAYS)
     protected Integer updateCount;
-
-    @TableLogic
-    @ColumnDefault("0")
-    @ColumnComment("是否删除")
-    protected Integer isDeleted;
 }

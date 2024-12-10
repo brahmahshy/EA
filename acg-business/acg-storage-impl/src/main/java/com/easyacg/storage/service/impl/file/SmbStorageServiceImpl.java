@@ -1,4 +1,4 @@
-package com.easyacg.storage.service.impl;
+package com.easyacg.storage.service.impl.file;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -6,7 +6,8 @@ import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.entity.properties.SmbProperties;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.repository.StorageRepository;
+import com.easyacg.storage.service.FileService;
 import com.hierynomus.msdtyp.AccessMask;
 import com.hierynomus.msfscc.fileinformation.FileIdBothDirectoryInformation;
 import com.hierynomus.msfscc.fileinformation.FileStandardInformation;
@@ -17,6 +18,7 @@ import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
 import com.hierynomus.smbj.session.Session;
 import com.hierynomus.smbj.share.DiskShare;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +36,12 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class SmbStorageServiceImpl implements StorageService {
+public class SmbStorageServiceImpl implements FileService {
+    @Resource
+    private StorageRepository storageRepository;
 
     @Override
-    public StorageModeEnum getStorage() {
+    public StorageModeEnum getType() {
         return StorageModeEnum.SMB;
     }
 

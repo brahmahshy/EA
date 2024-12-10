@@ -1,4 +1,4 @@
-package com.easyacg.storage.service.impl;
+package com.easyacg.storage.service.impl.file;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -6,7 +6,9 @@ import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.entity.properties.LocalProperties;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.repository.StorageRepository;
+import com.easyacg.storage.service.FileService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -27,9 +29,12 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-public class LocalFileStorageServiceImpl implements StorageService {
+public class LocalFileStorageServiceImpl implements FileService {
+    @Resource
+    private StorageRepository storageRepository;
+
     @Override
-    public StorageModeEnum getStorage() {
+    public StorageModeEnum getType() {
         return StorageModeEnum.LOCAL;
     }
 

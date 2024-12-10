@@ -2,7 +2,7 @@ package com.easyacg.storage.factory;
 
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.service.FileService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
@@ -18,26 +18,26 @@ import java.util.stream.Collectors;
  */
 @Component
 public class StorageFactory {
-    private static Map<StorageModeEnum, StorageService> storageEnumServiceMap;
+    private static Map<StorageModeEnum, FileService> storageEnumServiceMap;
 
-    private List<StorageService> storageServiceList;
+    private List<FileService> storageServiceList;
 
-    @Resource
-    public void setStorageServiceList(List<StorageService> storageServiceList) {
-        this.storageServiceList = storageServiceList;
-    }
-
-    public static StorageService getService(StorageModeEnum storageModeEnum) {
-        StorageService storageService = storageEnumServiceMap.get(storageModeEnum);
+    public static FileService getService(StorageModeEnum storageModeEnum) {
+        FileService storageService = storageEnumServiceMap.get(storageModeEnum);
         if (storageService == null) {
             throw EasyacgException.build("{0} 不存在对应的存储策略实现，请核实！！！", storageModeEnum);
         }
         return storageService;
     }
 
+    @Resource
+    public void setStorageServiceList(List<FileService> storageServiceList) {
+        this.storageServiceList = storageServiceList;
+    }
+
     @PostConstruct
     public void init() {
         storageEnumServiceMap = storageServiceList.stream()
-                .collect(Collectors.toMap(StorageService::getStorage, storageService -> storageService));
+                .collect(Collectors.toMap(FileService::getType, storageService -> storageService));
     }
 }

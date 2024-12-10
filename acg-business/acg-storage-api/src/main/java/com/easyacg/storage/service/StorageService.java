@@ -1,11 +1,9 @@
 package com.easyacg.storage.service;
 
-import com.easyacg.storage.entity.output.FileInfoVo;
-import com.easyacg.storage.model.StorageModeEnum;
+import com.easyacg.storage.entity.input.CreateStorageBo;
+import com.easyacg.storage.entity.input.UpdateStorageBo;
+import com.easyacg.storage.model.Storage;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -15,21 +13,38 @@ import java.util.List;
  */
 public interface StorageService {
     /**
-     * 获取实现类对应存储类型
+     * 创建存储策略
      *
+     * @param storageBo 存储策略Bo
+     */
+    void createStorage(CreateStorageBo storageBo);
+
+    /**
+     * 根据名称删除存储类型
+     *
+     * @param name 存储类型名称
+     */
+    void deleteByName(String name);
+
+    /**
+     * 更新存储策略
+     *
+     * @param storageBo 存储策略Bo
+     */
+    void updateStorage(UpdateStorageBo storageBo);
+
+    /**
+     * 根据名称获取存储类型
+     *
+     * @param name 存储类型名称
      * @return 存储类型
      */
-    StorageModeEnum getStorage();
+    Storage getStorageByName(String name);
 
     /**
-     * 遍历获取所有路径的对象
+     * 获取所有存储类型
      *
-     * @return 对象集合
+     * @return 存储类型列表
      */
-    List<FileInfoVo> listObjects();
-
-    /**
-     * 上传对象
-     */
-    void putObject(InputStream file, Path path) throws IOException;
+    List<Storage> getAllStorage();
 }

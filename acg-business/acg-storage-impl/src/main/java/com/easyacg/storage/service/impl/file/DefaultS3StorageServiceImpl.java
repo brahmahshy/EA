@@ -1,4 +1,4 @@
-package com.easyacg.storage.service.impl;
+package com.easyacg.storage.service.impl.file;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
@@ -7,7 +7,9 @@ import com.easyacg.storage.S3Util;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.entity.properties.S3Properties;
 import com.easyacg.storage.model.StorageModeEnum;
-import com.easyacg.storage.service.StorageService;
+import com.easyacg.storage.repository.StorageRepository;
+import com.easyacg.storage.service.FileService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
@@ -27,10 +29,12 @@ import java.util.List;
  */
 @Slf4j
 @Service
-public class DefaultS3StorageServiceImpl implements StorageService {
+public class DefaultS3StorageServiceImpl implements FileService {
+    @Resource
+    private StorageRepository storageRepository;
 
     @Override
-    public StorageModeEnum getStorage() {
+    public StorageModeEnum getType() {
         return StorageModeEnum.S3;
     }
 
