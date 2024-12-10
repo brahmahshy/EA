@@ -3,7 +3,7 @@ package com.easyacg.controller.storage;
 import com.easyacg.core.entity.ResponseVo;
 import com.easyacg.storage.entity.input.CreateStorageBo;
 import com.easyacg.storage.entity.input.UpdateStorageBo;
-import com.easyacg.storage.model.Storage;
+import com.easyacg.storage.entity.output.StorageVo;
 import com.easyacg.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
@@ -70,8 +70,8 @@ public class StorageController {
      */
     @GetMapping("/list")
     @Operation(description = "获取所有存储策略")
-    public ResponseVo<List<Storage>> list() {
-        List<Storage> storageList = storageService.getAllStorage();
+    public ResponseVo<List<StorageVo>> list() {
+        List<StorageVo> storageList = storageService.getAllStorage();
         return ResponseVo.success(storageList);
     }
 }

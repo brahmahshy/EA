@@ -1,11 +1,12 @@
 package com.easyacg.storage.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyacg.core.mybatis.TableBaseDo;
 import com.easyacg.image.model.Image;
 import com.easyacg.image.model.define.ImageDefine;
 import com.easyacg.storage.entity.properties.StorageProperties;
+import com.easyacg.storage.entity.properties.StoragePropertiesHandler;
 import com.easyacg.storage.model.define.StorageDefine;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @Data
 @Table
+@TableName(autoResultMap = true)
 @EqualsAndHashCode(callSuper = true)
 public class Storage extends TableBaseDo {
     @UniqueIndex
@@ -36,7 +38,7 @@ public class Storage extends TableBaseDo {
 
     @ColumnComment("存储策略配置")
     @Column(comment = "存储策略配置", type = "json")
-    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    @TableField(typeHandler = StoragePropertiesHandler.class)
     private StorageProperties properties;
 
     @ColumnComment("备注")

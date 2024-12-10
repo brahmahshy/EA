@@ -10,7 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 /**
- * 特殊的解析器，根据不同的类型，反序列化不同的对象
+ * 存储属性反序列化器
+ * <p>
+ * 主要用于与<b>前端接口</b>交互的json处理器
+ * </p>
  *
  * @author brahma
  */
