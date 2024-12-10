@@ -19,11 +19,15 @@ public class StoragePropertiesDeserializer extends JsonDeserializer<StoragePrope
     public StorageProperties deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         ObjectMapper mapper = (ObjectMapper) p.getCodec();
         JsonNode node = mapper.readTree(p);
+        String type = node.get("type").asText();
 
-        JsonNode typeNode = node.get("type");
-        StorageModeEnum mode = StorageModeEnum.valueOf(typeNode.asText());
-
-        StorageProperties properties = mapper.treeToValue(node, mode.getPropertiesClazz());
+        StorageProperties properties;
+        try {
+            StorageModeEnum mode = StorageModeEnum.valueOf(type);
+            properties = mapper.treeToValue(node, mode.getPropertiesClazz());
+        } catch (IllegalArgumentException e) {
+            properties = mapper.treeToValue(node, StorageProperties.class);
+        }
         properties.init();
         return properties;
     }
