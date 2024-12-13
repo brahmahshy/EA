@@ -5,13 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 异常处理类
@@ -24,11 +26,15 @@ import java.util.stream.Collectors;
 public class EaExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public <T> ResponseVo<T> handleValidationException(MethodArgumentNotValidException exception) {
-        List<String> errors = exception.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(result -> result.getField() + result.getDefaultMessage())
-                .collect(Collectors.toList());
+        List<String> errors = new ArrayList<>();
+        List<ObjectError> objectErrors = exception.getBindingResult().getAllErrors();
+        for (ObjectError objectError : objectErrors) {
+            if (objectError instanceof FieldError fieldError) {
+                errors.add(fieldError.getField() + fieldError.getDefaultMessage());
+            } else {
+                errors.add(objectError.getDefaultMessage());
+            }
+        }
         return ResponseVo.error("1.2.0", "参数校验失败", String.join(", ", errors));
     }
 

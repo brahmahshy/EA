@@ -29,7 +29,7 @@ public @interface MustHasOne {
      */
     String[] value();
 
-    String message() default "必须为有效的枚举值：{enumValue}";
+    String message() default "入参中至少一个参数有值：{value}";
 
     Class<?>[] groups() default {};
 
@@ -48,13 +48,18 @@ public @interface MustHasOne {
             if (value == null) {
                 return false;
             }
+
             boolean hasOne = false;
             for (String param : mustOneParams) {
                 try {
                     Field field = value.getClass().getDeclaredField(param);
                     field.setAccessible(true);
                     Object paramValue = field.get(value);
-                    if (paramValue instanceof CharSequence str && StringUtils.isBlank(str)) {
+                    if (paramValue == null) {
+                        continue;
+                    }
+
+                    if (paramValue instanceof CharSequence str && StringUtils.isNotBlank(str)) {
                         hasOne = true;
                         break;
                     }
@@ -64,7 +69,6 @@ public @interface MustHasOne {
                         break;
                     }
                 } catch (NoSuchFieldException | IllegalAccessException e) {
-                    // 如果字段不存在或访问失败，继续下一个字段
                     throw EasyacgException.build("参数配置异常，请联系管理员！", e);
                 }
             }

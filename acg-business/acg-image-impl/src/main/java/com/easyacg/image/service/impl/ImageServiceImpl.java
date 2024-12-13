@@ -57,6 +57,10 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private List<ImageVo> getImagesByStorage(Storage storage) {
+        if (storage == null) {
+            return Collections.emptyList();
+        }
+        
         Binder.bindOn(storage, Storage::getImageList);
 
         List<Image> imageList = storage.getImageList();

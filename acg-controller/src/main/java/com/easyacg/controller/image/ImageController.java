@@ -8,7 +8,9 @@ import com.easyacg.image.entity.output.ImageVo;
 import com.easyacg.image.service.ImageService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +22,7 @@ import java.util.List;
  * @author brahma
  */
 @Slf4j
+@Validated
 @RestController
 @RequestMapping("/image")
 public class ImageController {
@@ -33,7 +36,7 @@ public class ImageController {
      */
     @GetMapping("/read")
     @Operation(description = "根据存储策略名称，读取下面所有的图片")
-    public ResponseVo<List<ImageVo>> readImage(@RequestBody ReadByStorageBo storageBo) {
+    public ResponseVo<List<ImageVo>> readImage(@Valid @RequestBody ReadByStorageBo storageBo) {
         return ResponseVo.success(imageService.readImage(storageBo));
     }
 
