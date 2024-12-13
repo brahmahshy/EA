@@ -35,6 +35,14 @@ public interface StorageService {
     void updateStorage(UpdateStorageBo storageBo);
 
     /**
+     * 根据id获取存储类型
+     *
+     * @param id 存储类型id
+     * @return 存储类型
+     */
+    Storage getStorageById(String id);
+
+    /**
      * 根据名称获取存储类型
      *
      * @param name 存储类型名称

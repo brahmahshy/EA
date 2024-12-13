@@ -2,6 +2,7 @@ package com.easyacg.controller.image;
 
 import com.easyacg.core.entity.ResponseVo;
 import com.easyacg.image.entity.input.MigrateInput;
+import com.easyacg.image.entity.input.ReadByStorageBo;
 import com.easyacg.image.entity.input.UploadInput;
 import com.easyacg.image.entity.output.ImageVo;
 import com.easyacg.image.service.ImageService;
@@ -32,8 +33,8 @@ public class ImageController {
      */
     @GetMapping("/read")
     @Operation(description = "根据存储策略名称，读取下面所有的图片")
-    public ResponseVo<List<ImageVo>> readImage(@RequestParam String storageName) {
-        return ResponseVo.success(imageService.getImageByStorageName(storageName));
+    public ResponseVo<List<ImageVo>> readImage(@RequestBody ReadByStorageBo storageBo) {
+        return ResponseVo.success(imageService.readImage(storageBo));
     }
 
     /**
@@ -42,7 +43,7 @@ public class ImageController {
      * @return 是否成功
      */
     @PostMapping(value = "/upload")
-    @Operation(description = "将本地图像上传到其他地方")
+    @Operation(description = "将本地图像上传到存储策略")
     public ResponseVo<Void> uploadImage(@RequestPart MultipartFile file, @RequestPart UploadInput input) {
         log.info("开始处理文件迁移请求 - 文件名: {}, 大小: {} bytes", file.getOriginalFilename(), file.getSize());
         imageService.uploadImage(file, input);

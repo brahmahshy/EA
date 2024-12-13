@@ -1,10 +1,10 @@
 package com.easyacg.image.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.image.constant.ImageFormatEnum;
 import com.easyacg.image.entity.input.MigrateInput;
+import com.easyacg.image.entity.input.ReadByStorageBo;
 import com.easyacg.image.entity.input.UploadInput;
 import com.easyacg.image.entity.output.ImageVo;
 import com.easyacg.image.model.Image;
@@ -15,8 +15,11 @@ import com.easyacg.storage.factory.StorageFactory;
 import com.easyacg.storage.model.Storage;
 import com.easyacg.storage.repository.StorageRepository;
 import com.easyacg.storage.service.FileService;
+import com.easyacg.storage.service.StorageService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.mpe.bind.Binder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,22 +40,30 @@ public class ImageServiceImpl implements ImageService {
     private ImageRepository imageRepository;
 
     @Resource
+    private StorageService storageService;
+
+    @Resource
     private StorageRepository storageRepository;
 
     @Override
-    public List<ImageVo> getImageByStorageName(String storageName) {
-        LambdaQueryWrapper<Storage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Storage::getName, storageName);
-        Storage storageDo = storageRepository.getOne(wrapper);
+    public List<ImageVo> readImage(ReadByStorageBo storageBo) {
+        Storage storage;
+        if (StringUtils.isNotBlank(storageBo.getId())) {
+            storage = storageService.getStorageById(storageBo.getId());
+        } else {
+            storage = storageService.getStorageByName(storageBo.getName());
+        }
+        return getImagesByStorage(storage);
+    }
 
+    private List<ImageVo> getImagesByStorage(Storage storage) {
+        Binder.bindOn(storage, Storage::getImageList);
 
-        LambdaQueryWrapper<Image> wrapper2 = new LambdaQueryWrapper<>();
-        wrapper2.eq(Image::getStorageId, storageDo.getId());
-        List<Image> images = imageRepository.list(wrapper2);
-        if (CollectionUtil.isEmpty(images)) {
+        List<Image> imageList = storage.getImageList();
+        if (CollectionUtil.isEmpty(imageList)) {
             return Collections.emptyList();
         }
-        return images.stream().map(ImageVo::transfer).toList();
+        return imageList.stream().map(ImageVo::transfer).toList();
     }
 
     @Override
@@ -86,12 +97,8 @@ public class ImageServiceImpl implements ImageService {
             Path targetLocation = uploadPath.resolve(newFileName);
 
             // 8. 保存文件
-            LambdaQueryWrapper<Storage> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Storage::getName, input.getStorageName());
-            Storage storageDo = storageRepository.getOne(wrapper);
-
-
-            FileService service = StorageFactory.getService(storageDo.getMode());
+            Storage storage = storageService.getStorageByName(input.getStorageName());
+            FileService service = StorageFactory.getService(storage.getMode());
             service.putObject(file.getInputStream(), targetLocation);
         } catch (IOException e) {
             throw EasyacgException.build("UploadImage failed!!!", e);

@@ -1,6 +1,7 @@
 package com.easyacg.image.service;
 
 import com.easyacg.image.entity.input.MigrateInput;
+import com.easyacg.image.entity.input.ReadByStorageBo;
 import com.easyacg.image.entity.input.UploadInput;
 import com.easyacg.image.entity.output.ImageVo;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,9 +17,10 @@ public interface ImageService {
     /**
      * 根据配置项，读取现有的所有照片
      *
+     * @param storageBo 存储策略
      * @return 照片信息
      */
-    List<ImageVo> getImageByStorageName(String storageName);
+    List<ImageVo> readImage(ReadByStorageBo storageBo);
 
     /**
      * 上传图像

@@ -55,6 +55,11 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
+    public Storage getStorageById(String id) {
+        return storageRepository.getById(id);
+    }
+
+    @Override
     public Storage getStorageByName(String name) {
         return storageRepository.lambdaQueryPlus().eq(Storage::getName, name).one();
     }
