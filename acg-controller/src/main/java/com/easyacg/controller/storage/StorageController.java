@@ -1,8 +1,8 @@
 package com.easyacg.controller.storage;
 
 import com.easyacg.core.entity.ResponseVo;
-import com.easyacg.storage.entity.input.CreateStorageBo;
-import com.easyacg.storage.entity.input.UpdateStorageBo;
+import com.easyacg.storage.entity.input.storage.CreateStorageBo;
+import com.easyacg.storage.entity.input.storage.UpdateStorageBo;
 import com.easyacg.storage.entity.output.StorageVo;
 import com.easyacg.storage.service.StorageService;
 import io.swagger.v3.oas.annotations.Operation;

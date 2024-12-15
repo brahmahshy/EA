@@ -3,6 +3,7 @@ package com.easyacg.storage.service.impl.file;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
+import com.easyacg.storage.entity.input.file.PutObjectBo;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.entity.properties.LocalProperties;
 import com.easyacg.storage.model.StorageModeEnum;
@@ -11,11 +12,9 @@ import com.easyacg.storage.service.FileService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -77,7 +76,13 @@ public class LocalFileStorageServiceImpl implements FileService {
     }
 
     @Override
-    public void putObject(InputStream inputStream, Path path) throws IOException {
-        FileCopyUtils.copy(inputStream, Files.newOutputStream(path));
+    public String putObject(PutObjectBo putObjectBo) throws IOException {
+        Path uploadPath = putObjectBo.getPath();
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Files.copy(FileUtil.getInputStream(putObjectBo.getFile()), uploadPath);
+        return putObjectBo.getPath().toString();
     }
 }

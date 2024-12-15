@@ -1,8 +1,11 @@
 package com.easyacg.image.entity.input;
 
+import com.easyacg.core.contents.enums.BooleanEnum;
+import com.easyacg.core.validate.IsEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 上传入参
@@ -20,7 +23,17 @@ public class UploadInput {
     private String storageName;
 
     /**
+     * 是否需要压缩
+     */
+    @IsEnum(enumClass = BooleanEnum.class)
+    private String isNeedLossy;
+
+    /**
      * 保存路径
      */
     private String path;
+
+    public String getIsNeedLossy() {
+        return StringUtils.isBlank(isNeedLossy) ? "true" : isNeedLossy;
+    }
 }

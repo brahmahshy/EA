@@ -26,15 +26,20 @@ public @interface IsEnum {
 
     String message() default "必须为有效的枚举值：{enumValue}";
 
+    boolean ignoreCase() default true;
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
     class IsEnumValidator implements ConstraintValidator<IsEnum, Object> {
+        private boolean ignoreCase;
+
         private Class<? extends Enum<?>> enumClass;
 
         @Override
         public void initialize(IsEnum constraintAnnotation) {
+            this.ignoreCase = constraintAnnotation.ignoreCase();
             this.enumClass = constraintAnnotation.enumClass();
         }
 
@@ -53,6 +58,10 @@ public @interface IsEnum {
 
                 // 校验值是否合法
                 for (Enum<?> enumValue : enumConstants) {
+                    if (ignoreCase && enumValue.name().equalsIgnoreCase(value.toString())) {
+                        return true;
+                    }
+                    
                     if (enumValue.name().equals(value.toString())) {
                         return true;
                     }

@@ -3,6 +3,7 @@ package com.easyacg.storage.service.impl.file;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
+import com.easyacg.storage.entity.input.file.PutObjectBo;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.entity.properties.SmbProperties;
 import com.easyacg.storage.model.StorageModeEnum;
@@ -24,7 +25,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -138,7 +138,7 @@ public class SmbStorageServiceImpl implements FileService {
     }
 
     @Override
-    public void putObject(InputStream file, Path path) {
-
+    public String putObject(PutObjectBo putObjectBo) {
+        return "";
     }
 }

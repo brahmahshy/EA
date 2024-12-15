@@ -1,16 +1,16 @@
 package com.easyacg.storage;
 
-import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.FileUtil;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.entity.dto.FileChunkDto;
 import com.easyacg.storage.entity.dto.S3MultipartDto;
-import com.easyacg.storage.entity.output.FileInfoVo;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @UtilityClass
-public class S3Util {
+public class EaS3Client {
     /**
      * 分片大小阈值：5MB
      */
@@ -36,7 +36,15 @@ public class S3Util {
     /**
      * S3客户端实例
      */
-    public static S3Client s3Client;
+    public static final ThreadLocal<S3Client> S3_CLIENT = new ThreadLocal<>();
+
+    private S3Client getClient() {
+        S3Client s3Client = S3_CLIENT.get();
+        if (s3Client == null) {
+            throw EasyacgException.build("S3客户端未初始化");
+        }
+        return s3Client;
+    }
 
     /**
      * 列出指定桶中的所有对象
@@ -47,7 +55,7 @@ public class S3Util {
     public List<S3Object> listObjects(String bucketName) {
         log.info("正在获取桶[{}]中的所有对象", bucketName);
         ListObjectsV2Request request = ListObjectsV2Request.builder().bucket(bucketName).build();
-        List<S3Object> objects = s3Client.listObjectsV2(request).contents();
+        List<S3Object> objects = getClient().listObjectsV2(request).contents();
         log.info("成功获取桶[{}]中的对象，共{}个", bucketName, objects.size());
         return objects;
     }
@@ -62,14 +70,15 @@ public class S3Util {
      *
      * @param bucketName S3桶名称
      * @param objectName 对象名称（存储在S3中的文件名）
-     * @param infoVo     要上传的本地文件
+     * @param file       要上传的本地文件
      */
-    public void uploadObjects(String bucketName, String objectName, FileInfoVo infoVo) {
+    public void uploadObjects(String bucketName, String objectName, File file) {
+
         // 判断文件大小是否超过5MB阈值
-        long fileSize = infoVo.getFileSize();
+        long fileSize = file.length();
         if (fileSize <= CONTENT_LENGTH) {
             // 小于5MB使用普通上传
-            upload(bucketName, objectName, RequestBody.fromInputStream(infoVo.getInputStream(), fileSize));
+            upload(bucketName, objectName, RequestBody.fromFile(file));
         } else {
             // 创建分片上传请求
             S3MultipartDto multipartDto = new S3MultipartDto();
@@ -78,7 +87,7 @@ public class S3Util {
             multipartDto.setUploadId(createMultipartUpload(multipartDto));
 
             // 分片上传
-            List<CompletedPart> parts = splitFile(infoVo).stream()
+            List<CompletedPart> parts = splitFile(file).stream()
                     .map(chunk -> multipartUpload(multipartDto, chunk))
                     .collect(Collectors.toList());
 
@@ -93,12 +102,12 @@ public class S3Util {
      *
      * @param bucketName  S3桶名称
      * @param objectName  对象名称（存储在S3中的文件名）
-     * @param requestBody 本地文件路径
+     * @param requestBody 要上传的文件内容
      */
     public void upload(String bucketName, String objectName, RequestBody requestBody) {
         log.info("开始上传文件 - 桶: {}, 对象名: {}", bucketName, objectName);
         PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(objectName).build();
-        s3Client.putObject(request, requestBody);
+        getClient().putObject(request, requestBody);
         log.info("文件上传成功 - 桶: {}, 对象名: {}", bucketName, objectName);
     }
 
@@ -115,7 +124,7 @@ public class S3Util {
                 .bucket(multipartDto.getBucketName())
                 .key(multipartDto.getObjectName())
                 .build();
-        String uploadId = s3Client.createMultipartUpload(request).uploadId();
+        String uploadId = getClient().createMultipartUpload(request).uploadId();
         log.info("分片上传创建成功 - uploadId: {}", uploadId);
         return uploadId;
     }
@@ -124,7 +133,7 @@ public class S3Util {
      * 上传单个分片
      * 将文件的一个分片上传到S3存储
      *
-     * @param multipartDto 分片上传参数对象，包含桶名、对象名和上传ID
+     * @param multipartDto 分片���传参数对象，包含桶名、对象名和上传ID
      * @param chunk        分片数据对象，包含分片号、数据等信息
      * @return 已完成的分片信息，包含分片号和ETag
      */
@@ -147,7 +156,7 @@ public class S3Util {
                 .build();
 
         // 执行分片上传
-        UploadPartResponse response = s3Client.uploadPart(uploadPartRequest, RequestBody.fromBytes(chunk.getData()));
+        UploadPartResponse response = getClient().uploadPart(uploadPartRequest, RequestBody.fromBytes(chunk.getData()));
 
         // 返回分片上传的ETag
         CompletedPart part = CompletedPart.builder().partNumber(partNumber).eTag(response.eTag()).build();
@@ -181,38 +190,38 @@ public class S3Util {
                 .uploadId(multipartDto.getUploadId())
                 .multipartUpload(completedMultipartUpload)
                 .build();
-        s3Client.completeMultipartUpload(request);
+        getClient().completeMultipartUpload(request);
 
         log.info("分片上传已完成 - 桶: {}, 对象名: {}", multipartDto.getBucketName(), multipartDto.getObjectName());
     }
 
     /**
-     * 将文件分割成指定大小的分片
+     * ���文件分割成指定大小的分片
      * 用于大文件的分片上传准备
      *
-     * @param infoVo 要分片的源文件信息对象
+     * @param file 要分片的源文件信息对象
      * @return 分片信息列表
      * @throws EasyacgException 当文件读取失败时抛出
      */
-    private static List<FileChunkDto> splitFile(FileInfoVo infoVo) {
+    private static List<FileChunkDto> splitFile(File file) {
         log.info(
                 "开始分片文件: {}, 文件大小: {} bytes, 分片大小: {} bytes",
-                infoVo.getFileName(),
-                infoVo.getFileSize(),
+                file.getName(),
+                file.length(),
                 CONTENT_LENGTH
         );
 
         List<FileChunkDto> chunks = new ArrayList<>();
 
         // 文件总大小
-        long fileSize = infoVo.getFileSize();
+        long fileSize = file.length();
         // 当前处理位置
         long position = 0;
         // 分片序号，从1开始
         int chunkNumber = 1;
 
         // 读取所有字节
-        byte[] fileBytes = IoUtil.readBytes(infoVo.getInputStream());
+        byte[] fileBytes = FileUtil.readBytes(file);
 
         while (position < fileSize) {
             // 计算当前分片大小
@@ -235,7 +244,7 @@ public class S3Util {
             chunkNumber++;
         }
 
-        log.info("文件分片完成 - 文件: {}, 总分片数: {}", infoVo.getFileName(), chunks.size());
+        log.info("文件分片完成 - 文件: {}, 总分片数: {}", file.getName(), chunks.size());
         return chunks;
     }
 }

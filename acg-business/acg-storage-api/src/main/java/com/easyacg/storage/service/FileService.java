@@ -1,11 +1,10 @@
 package com.easyacg.storage.service;
 
+import com.easyacg.storage.entity.input.file.PutObjectBo;
 import com.easyacg.storage.entity.output.FileInfoVo;
 import com.easyacg.storage.model.StorageModeEnum;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -30,6 +29,9 @@ public interface FileService {
 
     /**
      * 上传对象
+     *
+     * @param putObjectBo 上传对象参数
+     * @return 文件路径 + 文件名
      */
-    void putObject(InputStream file, Path path) throws IOException;
+    String putObject(PutObjectBo putObjectBo) throws IOException;
 }

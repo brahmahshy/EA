@@ -1,4 +1,4 @@
-package com.easyacg.storage.entity.input;
+package com.easyacg.storage.entity.input.storage;
 
 import com.easyacg.storage.entity.properties.StorageProperties;
 import com.easyacg.storage.entity.properties.StoragePropertiesDeserializer;

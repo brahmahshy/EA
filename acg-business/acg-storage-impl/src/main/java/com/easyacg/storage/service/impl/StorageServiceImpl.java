@@ -1,8 +1,8 @@
 package com.easyacg.storage.service.impl;
 
 import com.easyacg.core.entity.EasyacgException;
-import com.easyacg.storage.entity.input.CreateStorageBo;
-import com.easyacg.storage.entity.input.UpdateStorageBo;
+import com.easyacg.storage.entity.input.storage.CreateStorageBo;
+import com.easyacg.storage.entity.input.storage.UpdateStorageBo;
 import com.easyacg.storage.entity.output.StorageVo;
 import com.easyacg.storage.model.Storage;
 import com.easyacg.storage.repository.StorageRepository;

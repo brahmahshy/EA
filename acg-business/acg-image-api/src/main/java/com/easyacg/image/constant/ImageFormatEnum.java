@@ -2,6 +2,7 @@ package com.easyacg.image.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 
@@ -13,22 +14,27 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum ImageFormatEnum {
-    JPG(".jpg", "JPEG图片"),
-    JPEG(".jpeg", "JPEG图片"),
-    PNG(".png", "PNG图片"),
-    GIF(".gif", "GIF图片"),
-    BMP(".bmp", "BMP图片"),
-    WEBP(".webp", "WEBP图片"),
-    HEIC(".heic", "HEIC图片"),
-    HEIF(".heif", "HEIF图片"),
-    RAW(".raw", "RAW图片"),
-    TIFF(".tiff", "TIFF图片"),
-    TIF(".tif", "TIF图片");
+    JPG(".jpg", "image/jpeg", "JPEG图片"),
+    JPEG(".jpeg", "image/jpeg", "JPEG图片"),
+    PNG(".png", "image/png", "PNG图片"),
+    GIF(".gif", "image/gif", "GIF图片"),
+    BMP(".bmp", "image/bmp", "BMP图片"),
+    WEBP(".webp", "image/webp", "WEBP图片"),
+    HEIC(".heic", "image/heic", "HEIC图片"),
+    HEIF(".heif", "image/heif", "HEIF图片"),
+    RAW(".raw", "image/x-raw", "RAW图片"),
+    TIFF(".tiff", "image/tiff", "TIFF图片"),
+    TIF(".tif", "image/tiff", "TIF图片");
 
     /**
      * 文件扩展名（包含点号）
      */
     private final String extension;
+
+    /**
+     * MIME类型
+     */
+    private final String mimeType;
 
     /**
      * 描述
@@ -42,11 +48,25 @@ public enum ImageFormatEnum {
      * @return 是否为图片
      */
     public static boolean isImage(String fileName) {
-        if (fileName == null || fileName.isEmpty()) {
+        if (StringUtils.isEmpty(fileName)) {
             return false;
         }
         String lowerFileName = fileName.toLowerCase();
         return Arrays.stream(ImageFormatEnum.values())
                 .anyMatch(format -> lowerFileName.endsWith(format.getExtension()));
+    }
+
+    /**
+     * 根据MIME类型判断是否为图片
+     *
+     * @param mimeType MIME类型
+     * @return 是否为图片
+     */
+    public static boolean isImageByMimeType(String mimeType) {
+        if (StringUtils.isEmpty(mimeType)) {
+            return false;
+        }
+        String lowerMimeType = mimeType.toLowerCase();
+        return Arrays.stream(ImageFormatEnum.values()).anyMatch(format -> lowerMimeType.equals(format.getMimeType()));
     }
 } 
