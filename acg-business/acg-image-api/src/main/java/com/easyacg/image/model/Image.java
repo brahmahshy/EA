@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 @Table
 @EqualsAndHashCode(callSuper = true)
 public class Image extends TableBaseDo {
-    // todo 使用 @InsertFillData()，在插入时，按照一定规律手动封装成全局唯一的图像名称
     @UniqueIndex
     @Column(comment = "图像名称", notNull = true)
     private String name;
@@ -44,4 +43,7 @@ public class Image extends TableBaseDo {
 
     @ColumnComment("存储策略id")
     private Long storageId;
+
+    @ColumnComment("文件md5值")
+    private String md5Hex;
 }

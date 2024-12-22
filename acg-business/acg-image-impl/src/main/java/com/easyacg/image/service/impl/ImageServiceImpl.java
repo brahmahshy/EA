@@ -2,6 +2,7 @@ package com.easyacg.image.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.easyacg.core.constant.enums.BooleanEnum;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.image.constant.ImageFormatEnum;
@@ -34,6 +35,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -109,6 +111,13 @@ public class ImageServiceImpl implements ImageService {
             } else {
                 tempFile = Files.createTempFile("", FileUtil.extName(file.getOriginalFilename()));
                 file.transferTo(tempFile);
+            }
+
+            Optional<Image> image = imageRepository.lambdaQueryPlus()
+                    .eq(Image::getMd5Hex, DigestUtil.md5Hex(tempFile.toFile()))
+                    .oneOpt();
+            if (image.isPresent()) {
+                return image.get().getName();
             }
 
             // 构建保存路径
