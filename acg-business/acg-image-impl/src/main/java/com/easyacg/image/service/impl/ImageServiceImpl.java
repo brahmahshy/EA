@@ -2,7 +2,7 @@ package com.easyacg.image.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
-import com.easyacg.core.contents.enums.BooleanEnum;
+import com.easyacg.core.constant.enums.BooleanEnum;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.image.constant.ImageFormatEnum;
 import com.easyacg.image.entity.input.MigrateInput;

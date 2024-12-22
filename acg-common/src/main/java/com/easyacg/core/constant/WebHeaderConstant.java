@@ -1,6 +1,6 @@
-package com.easyacg.core.contents;
+package com.easyacg.core.constant;
 
-public interface WebHeaderContents {
+public interface WebHeaderConstant {
     /**
      * 这个请求头是由代理服务器添加的，用于标识客户端的真实IP地址。
      * 如果客户端经过多个代理服务器，那么X-Forwarded-For中可能会包含多个IP地址，其中第一个IP地址通常是客户端的真实IP地址。

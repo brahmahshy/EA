@@ -3,9 +3,12 @@ package com.easyacg.core.mybatis;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.easyacg.core.constant.enums.ObjectType;
+import com.easyacg.core.handler.ObjectTypeAutoFillHandler;
 import lombok.Data;
 import org.dromara.autotable.annotation.ColumnComment;
 import org.dromara.mpe.annotation.*;
+import org.dromara.mpe.autotable.annotation.Column;
 import org.dromara.mpe.autotable.annotation.ColumnId;
 
 import java.time.LocalDateTime;
@@ -19,6 +22,10 @@ import java.time.LocalDateTime;
 public class TableBaseDo {
     @ColumnId(mode = IdType.ASSIGN_ID, comment = "主键id")
     protected Long id;
+
+    @Column(comment = "对象软类型", notNull = true)
+    @InsertFillData(ObjectTypeAutoFillHandler.class)
+    private ObjectType type;
 
     @ColumnComment("创建人id")
     @InsertFillData(UserIdAutoFillHandler.class)

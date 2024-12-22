@@ -2,6 +2,9 @@ package com.easyacg.storage.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyacg.attribute.entity.IbaAttribute;
+import com.easyacg.attribute.model.AttributeValue;
+import com.easyacg.attribute.model.define.AttributeValueDefine;
 import com.easyacg.core.mybatis.TableBaseDo;
 import com.easyacg.image.model.Image;
 import com.easyacg.image.model.define.ImageDefine;

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAutoTable
 @SpringBootApplication
 @PropertySource(value = {
-        "classpath:application.yml", "classpath:application-image.yml", "classpath:application-wx.yml"
+        "classpath:application.yml", "classpath:application-wx.yml"
 }, factory = EasyacgPropertySourceFactory.class)
 @ComponentScan("com.easyacg.*")
 public class EasyacgApplication {

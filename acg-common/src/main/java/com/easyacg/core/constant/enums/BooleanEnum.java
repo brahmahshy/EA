@@ -1,4 +1,4 @@
-package com.easyacg.core.contents.enums;
+package com.easyacg.core.constant.enums;
 
 /**
  * 布尔枚举

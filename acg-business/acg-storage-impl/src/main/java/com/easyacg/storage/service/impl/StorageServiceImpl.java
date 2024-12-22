@@ -1,5 +1,6 @@
 package com.easyacg.storage.service.impl;
 
+import com.easyacg.attribute.repository.AttributeValueRepository;
 import com.easyacg.core.entity.EasyacgException;
 import com.easyacg.storage.entity.input.storage.CreateStorageBo;
 import com.easyacg.storage.entity.input.storage.UpdateStorageBo;
@@ -25,6 +26,9 @@ public class StorageServiceImpl implements StorageService {
     @Resource
     private StorageRepository storageRepository;
 
+    @Resource
+    private AttributeValueRepository attributeValueRepository;
+
     @Override
     public void createStorage(CreateStorageBo storageBo) {
         boolean isCreated = storageRepository.save(storageBo.trans());
@@ -32,6 +36,8 @@ public class StorageServiceImpl implements StorageService {
             log.error("创建存储策略失败，名称：{}", storageBo.getName());
             throw EasyacgException.build("创建 {} 存储策略失败", storageBo.getName());
         }
+
+
     }
 
     @Override

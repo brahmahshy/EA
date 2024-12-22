@@ -5,23 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.easyacg</groupId>
-        <artifactId>EA</artifactId>
+        <artifactId>acg-business</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>acg-business</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>acg-business-core</module>
-        <module>acg-image-api</module>
-        <module>acg-image-impl</module>
-        <module>acg-storage-api</module>
-        <module>acg-storage-impl</module>
-        <module>acg-user</module>
-        <module>acg-wechat</module>
-        <module>acg-common-api</module>
-        <module>acg-common-impl</module>
-    </modules>
+    <artifactId>acg-common-impl</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -32,8 +20,9 @@
     <dependencies>
         <dependency>
             <groupId>com.easyacg</groupId>
-            <artifactId>acg-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>acg-common-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
+
 </project>

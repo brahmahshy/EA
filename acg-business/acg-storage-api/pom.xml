@@ -21,6 +21,11 @@
     <dependencies>
         <dependency>
             <groupId>com.easyacg</groupId>
+            <artifactId>acg-common-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.easyacg</groupId>
             <artifactId>acg-image-api</artifactId>
             <version>${project.version}</version>
         </dependency>

@@ -1,7 +1,7 @@
 package com.easyacg.core.util;
 
 import cn.hutool.core.util.StrUtil;
-import com.easyacg.core.contents.WebHeaderContents;
+import com.easyacg.core.constant.WebHeaderConstant;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -23,18 +23,18 @@ public class IpUtil {
      * @return ip地址
      */
     public String getIp(HttpServletRequest request) {
-        String ip = request.getHeader(WebHeaderContents.X_FORWARDED_FOR);
+        String ip = request.getHeader(WebHeaderConstant.X_FORWARDED_FOR);
         if (isIpInvalid(ip)) {
-            ip = request.getHeader(WebHeaderContents.PROXY_CLIENT_IP);
+            ip = request.getHeader(WebHeaderConstant.PROXY_CLIENT_IP);
         }
         if (isIpInvalid(ip)) {
-            ip = request.getHeader(WebHeaderContents.HTTP_CLIENT_IP);
+            ip = request.getHeader(WebHeaderConstant.HTTP_CLIENT_IP);
         }
         if (isIpInvalid(ip)) {
-            ip = request.getHeader(WebHeaderContents.HTTP_X_FORWARDED_FOR);
+            ip = request.getHeader(WebHeaderConstant.HTTP_X_FORWARDED_FOR);
         }
         if (isIpInvalid(ip)) {
-            ip = request.getHeader(WebHeaderContents.WL_PROXY_CLIENT_IP);
+            ip = request.getHeader(WebHeaderConstant.WL_PROXY_CLIENT_IP);
         }
         if (isIpInvalid(ip)) {
             // 这个方法返回的是客户端的IP地址，但是它不一定代表客户端的真实IP地址。

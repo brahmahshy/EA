@@ -1,6 +1,6 @@
 package com.easyacg.image.entity.input;
 
-import com.easyacg.core.contents.enums.BooleanEnum;
+import com.easyacg.core.constant.enums.BooleanEnum;
 import com.easyacg.core.validate.IsEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
