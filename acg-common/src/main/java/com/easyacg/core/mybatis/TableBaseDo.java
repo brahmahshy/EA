@@ -25,7 +25,7 @@ public class TableBaseDo {
 
     @Column(comment = "对象软类型", notNull = true)
     @InsertFillData(ObjectTypeAutoFillHandler.class)
-    private ObjectType type;
+    protected ObjectType type;
 
     @ColumnComment("创建人id")
     @InsertFillData(UserIdAutoFillHandler.class)
